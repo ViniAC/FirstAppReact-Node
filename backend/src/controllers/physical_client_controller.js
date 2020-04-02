@@ -18,13 +18,14 @@ module.exports = {
 
     //Cadastra os clientes físicos
     async create(request, response) {
-        const { cpf, name, email, date_birth } = request.body;
+        const { cpf, name, email, date_birth, password } = request.body;
 
         await connection('tb_physical_client').insert({
             cpf,
             name,
             email,
             date_birth,
+            password,
         })
 
         return response.json('Physical client created!');

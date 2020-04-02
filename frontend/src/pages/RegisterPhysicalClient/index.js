@@ -11,7 +11,7 @@ export default function Register() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [date_birth, setDt_birth] = useState('');
-
+    const [password, setPassword] = useState('');
     const history = useHistory();
 
     async function handleRegister(event) {
@@ -21,7 +21,8 @@ export default function Register() {
             cpf,
             name,
             email,
-            date_birth
+            date_birth,
+            password,
         };
 
         console.log(data);
@@ -72,6 +73,13 @@ export default function Register() {
                         placeholder="E-mail"
                         value={email}
                         onChange={event => setEmail(event.target.value)}
+                    />
+
+                    <input 
+                        type="password"
+                        placeholder="Senha"
+                        value={password}
+                        onChange={event => setPassword(event.target.value)}
                     />
 
                     <input

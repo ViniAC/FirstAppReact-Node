@@ -4,7 +4,7 @@ const crypto = require('crypto');
 module.exports = {
 
     async create(request, response) {
-        const { cnpj, name, email, whatsapp, city, uf } = request.body;
+        const { cnpj, name, email, whatsapp, city, uf, password } = request.body;
 
         const pk_id_legal_client = crypto.randomBytes(4).toString('HEX');
 
@@ -16,6 +16,7 @@ module.exports = {
             whatsapp,
             city,
             uf,
+            password,
         })
         return response.json({ pk_id_legal_client });
     },

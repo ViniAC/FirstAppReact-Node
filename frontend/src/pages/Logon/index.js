@@ -9,6 +9,7 @@ import api from '../../services/api';
 export default function Logon() {
 
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const history = useHistory();
 
     async function handleLogin(e) {
@@ -16,9 +17,10 @@ export default function Logon() {
 
         try {
 
-            const response = await api.post('sessions', { email });
+            const response = await api.post('sessions', { email, password });
 
             localStorage.setItem('physical_client_email', email);
+            localStorage.setItem('physical_client_password', password);
             localStorage.setItem('physical_client_name', response.data.name);
 
             history.push('/profile');
@@ -40,7 +42,12 @@ export default function Logon() {
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                     />
-                    <input type="password" placeholder="Sua senha" />
+                    <input 
+                        type="password" 
+                        placeholder="Sua senha" 
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                    />
                     <button className="button" type="submit">Entrar</button>
 
                     <Link className="back-link" to="/register-physical-client">

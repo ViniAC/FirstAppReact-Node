@@ -22,10 +22,20 @@ export default function Register() {
                     </Link>
                 </section>
                 <form>
-                    <input placeholder="CNPJ" maxLength="14" />
-                    <input placeholder="Nome" />
-                    <input type="email" placeholder="E-mail" />
-                    <input placeholder="WhatsApp" />
+                    <input 
+                        placeholder="CNPJ" 
+                        maxLength="14" 
+                    />
+                    <input 
+                        placeholder="Nome" 
+                    />
+                    <input 
+                        type="email" 
+                        placeholder="E-mail" 
+                    />
+                    <input 
+                        placeholder="WhatsApp" 
+                    />
 
                     <div className="input-group">
                         <input placeholder="Cidade" />
