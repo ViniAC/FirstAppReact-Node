@@ -9,15 +9,17 @@ import api from '../../services/api';
 export default function Logon() {
 
     const [pk_id_legal_client, setId] = useState('');
+    const [password, setPassword] = useState('');
     const history = useHistory();
 
     async function handleLogin(e) {
         e.preventDefault();
 
         try {
-            const response = await api.post('session-legal-client', { pk_id_legal_client });
+            const response = await api.post('session-legal-client', { pk_id_legal_client, password });
 
             localStorage.setItem('legal_client_name', response.data.name);
+            localStorage.setItem('legal_client_password', response.data.password);
             localStorage.setItem('legal_client_id', response.data.pk_id_legal_client);
 
             history.push('/profile-legal-clients');
@@ -39,7 +41,8 @@ export default function Logon() {
                         value={pk_id_legal_client}
                         onChange={e => setId(e.target.value)}
                     />
-                    <input type="password" placeholder="Sua senha" />
+                    <input type="password" placeholder="Sua senha" value={password}
+                        onChange={e => setPassword(e.target.value)}/>
                     <button className="button" type="submit">Entrar</button>
 
                     <Link className="back-link" to="/register-legal-client">
