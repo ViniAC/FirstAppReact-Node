@@ -77,6 +77,7 @@
     display: block;
     margin-bottom: 16px;
     color: #41414d;
+    
 }
 
 .profile-container ul li p+strong {
@@ -89,21 +90,15 @@
     font-size: 16px;
 }
 
-#btn_make_order {
-    border-radius: 10px;
-    background: #e02041;
-    color: #FFF;
-    font-weight: bold;
-    margin-top: 180px;
+#btn_remove_meal {
     position: absolute;
     right: 24px;
-    font-size: 15px;
-    width: 150px;
-    line-height: 45px;
-    transition:  0.3s;
-    size: 20px;
+    top: 24px;
+    border: 0;
+    background: white;
+    margin-top: 30px;
 }
 
-#btn_make_order :hover {
+#btn_remove_meal :hover {
     opacity: 0.7;
 }

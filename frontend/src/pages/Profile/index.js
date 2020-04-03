@@ -1,19 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logoImg from '../../assets/logo.svg';
 import { FiPower } from 'react-icons/fi';
+import { IoMdAdd, IoIosRemove } from 'react-icons/io'
 import './styles.css';
 import { Link, useHistory } from 'react-router-dom';
+import api from '../../services/api';
 
 export default function Profile() {
-    const history = useHistory();
-    const physical_client_name = localStorage.getItem('client_name');
 
+    const [meals, setMeals] = useState([]);
+    const [listOrder, setListOrder] = useState([]);
+
+    const history = useHistory();
+    const physical_client_name = localStorage.getItem('physical_client_name');
+    const physical_client_email = localStorage.getItem('physical_client_email')
+    
+    useEffect(() => {
+        api.get('profile', {
+            headers: {
+                Authorization: physical_client_email,
+            }
+        }).then(response => {
+            setMeals(response.data);
+        })
+
+    }, [physical_client_email]);
+
+    function handleRemoveMeal(meal) {
+        console.log('')
+    }
+
+    function handleAddMeal(mealId) {
+        let isInList = false;
+        for (let index = 0; index < listOrder.length; index++) {
+            if(mealId == listOrder[index]){
+                isInList = true;
+            }
+        }   
+        if (!isInList){
+         setListOrder([
+            ...listOrder,
+            mealId
+        ]);
+        }
+    }
+    
     function handleLogout() {
 
         localStorage.clear();
         history.push('/');
-
-
     }
     return (
         <div className="profile-container">
@@ -28,64 +63,26 @@ export default function Profile() {
             </header>
             <h1>Pratos:</h1>
             <ul>
-                <li>
-                    <strong>PRATO:</strong>
-                    <p>Caso teste</p>
+                {meals.map(meal => (
+                    <li key={meal.pk_id_meal}>
+                        <strong>PRATO:</strong>
+                        <p>{meal.name}</p>
 
-                    <strong>Descrição:</strong>
-                    <p>Descrição teste</p>
+                        <strong>Descrição:</strong>
+                        <p>{meal.description}</p>
 
-                    <strong>VALOR:</strong>
-                    <p>120,00</p>
+                        <strong>VALOR:</strong>
+                        <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}</p>
 
-                    <button id="btn_make_order">
-                        Fazer pedido
-                    </button>
+                        <button  onClick={() => handleAddMeal(meal.pk_id_meal)} type="button">
+                            <IoMdAdd size={20} color="gray" />
+                        </button>
 
-
-                </li>
-                <li>
-                    <strong>PRATO:</strong>
-                    <p>Caso teste</p>
-
-                    <strong>Descrição:</strong>
-                    <p>Descrição teste</p>
-
-                    <strong>VALOR:</strong>
-                    <p>120,00</p>
-
-                    <button id="btn_make_order">
-                        Fazer pedido
-                    </button>
-                </li>
-                <li>
-                    <strong>PRATO:</strong>
-                    <p>Caso teste</p>
-
-                    <strong>Descrição:</strong>
-                    <p>Descrição teste</p>
-
-                    <strong>VALOR:</strong>
-                    <p>120,00</p>
-
-                    <button id="btn_make_order">
-                        Fazer pedido
-                    </button>
-                </li>
-                <li>
-                    <strong>PRATO:</strong>
-                    <p>Caso teste</p>
-
-                    <strong>Descrição:</strong>
-                    <p>Descrição teste</p>
-
-                    <strong>VALOR:</strong>
-                    <p>120,00</p>
-
-                    <button id="btn_make_order">
-                        Fazer pedido
-                    </button>
-                </li>
+                        <button id="btn_remove_meal" onClick={() => handleRemoveMeal(meal.pk_id_meal)} type="button">
+                            <IoIosRemove size={20} color="gray" />
+                        </button>
+                    </li>
+                ))}
             </ul>
 
         </div>

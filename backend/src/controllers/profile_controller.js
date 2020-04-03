@@ -5,7 +5,6 @@ module.exports = {
 
         const meals = await connection('tb_meal')
             .select('*');
-
         return response.json(meals);
     }
 }
