@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import logoImg from '../../assets/logo.svg';
 import { FiPower } from 'react-icons/fi';
 import { IoMdAdd, IoIosRemove } from 'react-icons/io'
 import './styles.css';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import api from '../../services/api';
 
 export default function Profile() {
@@ -14,6 +14,12 @@ export default function Profile() {
     const history = useHistory();
     const physical_client_name = localStorage.getItem('physical_client_name');
     const physical_client_email = localStorage.getItem('physical_client_email')
+
+    //Search for meals, update each key pressed
+    const [newSearch, setNewSearch] = useState('');
+    const onNewSearchChange = useCallback((event) => {
+        setNewSearch(event.target.value);
+    },);
     
     useEffect(() => {
         api.get('profile', {
@@ -22,12 +28,12 @@ export default function Profile() {
             }
         }).then(response => {
             setMeals(response.data);
-        })
 
+        })
     }, [physical_client_email]);
 
-    function handleRemoveMeal(meal) {
-        console.log('')
+    function handleRemoveMeal(mealId) {
+        setListOrder(listOrder.filter(otherMeal => otherMeal !== mealId));
     }
 
     function handleAddMeal(mealId) {
@@ -46,10 +52,11 @@ export default function Profile() {
     }
     
     function handleLogout() {
-
         localStorage.clear();
         history.push('/');
     }
+
+
     return (
         <div className="profile-container">
             <header>
@@ -61,8 +68,15 @@ export default function Profile() {
                     <FiPower size={18} color="#E02041" />
                 </button>
             </header>
+            <form>
+                <input
+                    placeholder="Nome do prato"
+                    value={newSearch}
+                    onChange={onNewSearchChange}
+                />
+            </form>
             <h1>Pratos:</h1>
-            <ul>
+            <ul >
                 {meals.map(meal => (
                     <li key={meal.pk_id_meal}>
                         <strong>PRATO:</strong>
@@ -84,7 +98,6 @@ export default function Profile() {
                     </li>
                 ))}
             </ul>
-
         </div>
 
     );

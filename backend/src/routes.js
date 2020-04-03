@@ -8,6 +8,7 @@ const profile_legal_clients_controller = require('./controllers/profile_legal_cl
 const session_controller = require('./controllers/session_controller');
 const session_legal_clients_controller = require('./controllers/session_legal_clients_controller');
 
+
 //Cadastra clientes físicos
 routes.post('/users', physical_client_controller.create);
 //Lista clientes físicos

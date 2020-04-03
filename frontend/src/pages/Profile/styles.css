@@ -43,10 +43,15 @@
     border-color: #999;
 }
 
-.profile-container h1 {
+.profile-container form {
     margin-top: 80px;
+}
+
+.profile-container h1 {
+    margin: auto;
     margin-bottom: 24px;
 }
+
 
 .profile-container ul {
     display: grid;
@@ -90,6 +95,14 @@
     font-size: 16px;
 }
 
+.profile-container ul li input {
+position: absolute;
+right: 50px;
+top:25px;
+width: 60px;
+margin-bottom: 50px;
+}
+
 #btn_remove_meal {
     position: absolute;
     right: 24px;
@@ -102,3 +115,4 @@
 #btn_remove_meal :hover {
     opacity: 0.7;
 }
+
