@@ -28,11 +28,11 @@ module.exports = {
             .offset((page - 1) * 5)
             .select([
                 'tb_meal.pk_id_meal',
-                'tb_meal.name as meal name',
+                'tb_meal.name as meal_name',
                 'tb_meal.description',
                 'tb_meal.value',
                 'tb_meal.fk_id_legal_client',
-                'tb_legal_client.name',
+                'tb_legal_client.name as companie_name',
                 'tb_legal_client.email',
                 'tb_legal_client.whatsapp',
                 'tb_legal_client.city',
