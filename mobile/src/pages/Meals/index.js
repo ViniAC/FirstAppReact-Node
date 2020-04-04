@@ -16,13 +16,14 @@ export default function Meals() {
         navigation.navigate('Detail');
     }
 
-    async function loadIncidents() {
+    async function loadMeals() {
         const response = await api.get('meals');
         setMeals(response.data);
+        print(response.data);
     }
 
     useEffect(() => {
-        loadIncidents();
+        loadMeals();
     }, []);
 
     return (

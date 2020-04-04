@@ -10,6 +10,7 @@ export default function Profile() {
 
     const [meals, setMeals] = useState([]);
     const [listOrder, setListOrder] = useState([]);
+    const [foodCount, setFoodCount] = useState();
 
     const history = useHistory();
     const physical_client_name = localStorage.getItem('physical_client_name');
@@ -19,8 +20,8 @@ export default function Profile() {
     const [newSearch, setNewSearch] = useState('');
     const onNewSearchChange = useCallback((event) => {
         setNewSearch(event.target.value);
-    },);
-    
+    });
+
     useEffect(() => {
         api.get('profile', {
             headers: {
@@ -33,24 +34,41 @@ export default function Profile() {
     }, [physical_client_email]);
 
     function handleRemoveMeal(mealId) {
-        setListOrder(listOrder.filter(otherMeal => otherMeal !== mealId));
+        let copyOfList = listOrder.slice()
+        for (let index = 0; index < copyOfList.length; index++) {
+            if (mealId == copyOfList[index].mealId) {
+                if (copyOfList[index].qt == 1){
+                    copyOfList.splice(index,1);
+                    setListOrder(copyOfList);
+                    return
+                }
+                copyOfList[index].qt--
+            }
+        }
+        setListOrder(copyOfList);
     }
 
-    function handleAddMeal(mealId) {
-        let isInList = false;
-        for (let index = 0; index < listOrder.length; index++) {
-            if(mealId == listOrder[index]){
+    async function handleAddMeal(mealId) {
+        let isInList = false
+        let copyOfList = listOrder.slice()
+        for (let index = 0; index < copyOfList.length; index++) {
+            if (mealId == copyOfList[index].mealId) {
+                copyOfList[index].qt++
                 isInList = true;
+                setListOrder(copyOfList);
             }
-        }   
-        if (!isInList){
-         setListOrder([
-            ...listOrder,
-            mealId
-        ]);
         }
+        if (!isInList) {
+            await setListOrder([
+                ...listOrder,
+                mealId = {
+                    mealId: mealId,
+                    qt: 1
+                }
+        ]);
+        } 
     }
-    
+
     function handleLogout() {
         localStorage.clear();
         history.push('/');
@@ -88,16 +106,18 @@ export default function Profile() {
                         <strong>VALOR:</strong>
                         <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}</p>
 
-                        <button  onClick={() => handleAddMeal(meal.pk_id_meal)} type="button">
+                        <button onClick={() => handleAddMeal(meal.pk_id_meal)} type="button">
                             <IoMdAdd size={20} color="gray" />
                         </button>
 
                         <button id="btn_remove_meal" onClick={() => handleRemoveMeal(meal.pk_id_meal)} type="button">
                             <IoIosRemove size={20} color="gray" />
                         </button>
+
                     </li>
                 ))}
             </ul>
+            <button id='finish-order'>Finalizar pedido</button>
         </div>
 
     );
