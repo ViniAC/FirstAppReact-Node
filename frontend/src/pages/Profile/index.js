@@ -10,17 +10,39 @@ export default function Profile() {
 
     const [meals, setMeals] = useState([]);
     const [listOrder, setListOrder] = useState([]);
-    const [foodCount, setFoodCount] = useState();
 
     const history = useHistory();
     const physical_client_name = localStorage.getItem('physical_client_name');
     const physical_client_email = localStorage.getItem('physical_client_email')
+    const physical_client_id = localStorage.getItem('physical_client_id')
 
     //Search for meals, update each key pressed
     const [newSearch, setNewSearch] = useState('');
     const onNewSearchChange = useCallback((event) => {
         setNewSearch(event.target.value);
     });
+
+ /*    async function handleMakeOrder(event) {
+        event.preventDefault();
+
+        const data = {
+            description,
+            price,
+            fk_id_legal_client,
+            fk_id_physical_client,
+            fk_id_meal,
+        };
+
+        console.log(data);
+
+        try {
+            const response = await api.post('order', data);
+            alert(`Pedido realizado com sucesso`);
+            console.log(response)
+        } catch (err) {
+            alert('Erro ao fazer pedido.');
+        }
+    } */
 
     useEffect(() => {
         api.get('profile', {
@@ -33,12 +55,14 @@ export default function Profile() {
         })
     }, [physical_client_email]);
 
+
+
     function handleRemoveMeal(mealId) {
         let copyOfList = listOrder.slice()
         for (let index = 0; index < copyOfList.length; index++) {
             if (mealId == copyOfList[index].mealId) {
-                if (copyOfList[index].qt == 1){
-                    copyOfList.splice(index,1);
+                if (copyOfList[index].qt == 1) {
+                    copyOfList.splice(index, 1);
                     setListOrder(copyOfList);
                     return
                 }
@@ -65,8 +89,8 @@ export default function Profile() {
                     mealId: mealId,
                     qt: 1
                 }
-        ]);
-        } 
+            ]);
+        }
     }
 
     function handleLogout() {

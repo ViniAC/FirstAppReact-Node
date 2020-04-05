@@ -7,6 +7,7 @@ const profile_controller = require('./controllers/profile_controller');
 const profile_legal_clients_controller = require('./controllers/profile_legal_clients_controller');
 const session_controller = require('./controllers/session_controller');
 const session_legal_clients_controller = require('./controllers/session_legal_clients_controller');
+const order_controller = require('./controllers/order_controller');
 
 
 //Cadastra clientes físicos
@@ -39,5 +40,8 @@ routes.post('/sessions', session_controller.create);
 routes.get('/profile-legal-clients', profile_legal_clients_controller.index);
 routes.post('/session-legal-client', session_legal_clients_controller.create);
 
+
+routes.post('/order', order_controller.create);
+routes.get('/order', order_controller.index);
 
 module.exports = routes;

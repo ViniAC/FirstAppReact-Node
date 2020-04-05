@@ -8,7 +8,7 @@ module.exports = {
             .where('email', email)
             .and
             .where('password', password)
-            .select('name')
+            .select('pk_id_physical_client', 'name')
             .first();
 
         if (!physical_client) {

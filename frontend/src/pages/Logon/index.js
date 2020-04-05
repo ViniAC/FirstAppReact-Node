@@ -22,6 +22,9 @@ export default function Logon() {
             localStorage.setItem('physical_client_email', email);
             localStorage.setItem('physical_client_password', password);
             localStorage.setItem('physical_client_name', response.data.name);
+            localStorage.setItem('physical_client_id', response.data.pk_id_physical_client);
+
+            console.log()
 
             history.push('/profile');
         } catch (err) {
@@ -42,9 +45,9 @@ export default function Logon() {
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                     />
-                    <input 
-                        type="password" 
-                        placeholder="Sua senha" 
+                    <input
+                        type="password"
+                        placeholder="Sua senha"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                     />
