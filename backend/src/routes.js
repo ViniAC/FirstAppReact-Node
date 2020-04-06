@@ -25,7 +25,7 @@ routes.get('/users', physical_client_controller.index);
 
 routes.post('/companies', legal_client_controller.create);
 routes.get('/companies', legal_client_controller.index);
-//routes.get('/companies/:id', legal_client_controller.delete);
+//routes.('/companies/:id', legal_client_controller.delete);
 
 
 
@@ -37,7 +37,7 @@ routes.delete('/meals/:pk_id_meal', meal_controller.delete);
 routes.get('/home-physical-client', home_physical_client_controller.index);
 routes.post('/session-physical-client', session_physical_client_controller.create);
 routes.get('/profile-physical-client', profile_physical_client_controller.index);
-
+routes.put('/profile-physical-client', profile_physical_client_controller.update);
 
 routes.get('/home-legal-client', home_legal_clients_controller.index);
 routes.post('/session-legal-client', session_legal_client_controller.create);

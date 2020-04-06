@@ -144,7 +144,6 @@ export default function Home() {
                         <button id="btn_remove_meal" onClick={() => handleRemoveMeal(meal.pk_id_meal)} type="button">
                             <IoIosRemove size={20} color="gray" />
                         </button>
-
                     </li>
                 ))}
             </ul>
