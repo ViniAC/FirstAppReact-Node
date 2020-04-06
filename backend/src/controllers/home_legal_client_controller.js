@@ -2,6 +2,7 @@ const connection = require('../database/connection');
 
 module.exports = {
     async index(request, response) {
+        
         const fk_id_legal_client = request.headers.authorization;
 
         const meals = await connection('tb_meal')

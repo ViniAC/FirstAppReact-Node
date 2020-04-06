@@ -31,7 +31,7 @@ export default function NewMeal() {
                 }
             })
 
-            history.push('/profile-legal-clients');
+            history.push('/home-legal-clients');
         } catch (err) {
             alert('Erro ao cadastrar prato, tente novamente.');
         }
@@ -48,7 +48,7 @@ export default function NewMeal() {
                     <h1>Cadastro de novos pratos</h1>
                     <p>Cadastre pratos deliciosos!</p>
 
-                    <Link className="back-link" to="/profile">
+                    <Link className="back-link" to="/home-physical-client">
                         <FiArrowLeft size={16} color="#E02041" />
                     Voltar para Home
                 </Link>

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import logoImg from '../../assets/logo.svg';
-import { FiPower, FiTrash2, FiEdit2 } from 'react-icons/fi';
+import { FiPower, FiTrash2, FiEdit2, FiUser } from 'react-icons/fi';
 import './styles.css';
 import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 
-export default function Profile() {
+export default function Home() {
 
     const [meals, setMeals] = useState([]);
 
@@ -14,7 +14,7 @@ export default function Profile() {
     const legal_client_name = localStorage.getItem('legal_client_name');
 
     useEffect(() => {
-        api.get('profile-legal-clients', {
+        api.get('home-legal-client', {
             headers: {
                 Authorization: legal_client_id,
             }
@@ -42,12 +42,15 @@ export default function Profile() {
 
         localStorage.clear();
         history.push('/');
+    }
 
+    async function handleMyProfile() {
 
+        history.push('profile-legal-client');
     }
 
     return (
-        <div className="profile-container">
+        <div className="home-container">
             <header>
                 <img src={logoImg} alt="Be The Hero" />
 
@@ -57,6 +60,10 @@ export default function Profile() {
 
                 <button onClick={handleLogout} type="button">
                     <FiPower size={18} color="#E02041" />
+                </button>
+
+                <button onClick={handleMyProfile} type="button" id="btn_my_profile">
+                    <FiUser size={18} color="#E02041" />
                 </button>
             </header>
             <h1>Pratos Cadastrados</h1>

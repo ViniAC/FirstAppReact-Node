@@ -1,31 +1,31 @@
-.profile-container {
+.home-container {
     width: 100%;
     max-width: 1180px;
     padding: 0 30px;
     margin: 32px auto;
 }
 
-.profile-container header {
+.home-container header {
     display: flex;
     align-items: center;
 }
 
-.profile-container header span {
+.home-container header span {
     font-size: 20px;
     margin-left: 24px;
 }
 
-.profile-container header img {
+.home-container header img {
     height: 64px;
 }
 
-.profile-container header a {
+.home-container header a {
     width: 260px;
     margin-left: auto;
     margin-top: 0;
 }
 
-.profile-container header button {
+.home-container header button {
     height: 60px;
     width: 60px;
     border-radius: 4px;
@@ -39,71 +39,75 @@
 
 }
 
-.profile-container header button:hover {
+.home-container header button:hover {
     border-color: #999;
 }
 
-.profile-container form {
-    margin-top: 80px;
+#btn_my_profile {
+    height: 60px;
+    width: 60px;
+    border-radius: 4px;
+    border: 1px solid #dcdce6;
+    background: transparent;
+    margin-left: 16px;
+    transition: border-color 0.3s;
+    position: absolute;
+    right: 100px;
+    top: 24px;
 }
 
-.profile-container h1 {
-    margin: auto;
+.home-container h1 {
+    margin-top: 80px;
     margin-bottom: 24px;
 }
 
+#btn_my_profile:hover {
+    border-color: #999;
+}
 
-.profile-container ul {
+.home-container ul {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 24px;
     list-style: none;
 }
 
-.profile-container ul li {
+.home-container ul li {
     background: #FFF;
     padding: 24px;
     border-radius: 8px;
     position: relative;
 }
 
-.profile-container ul li button {
+.home-container ul li button {
     position: absolute;
     right: 24px;
     top: 24px;
     border: 0;
+    background: white;
 }
 
-.profile-container ul li button:hover {
+.home-container ul li button:hover {
     opacity: 0.7;
 }
 
-.profile-container ul li strong {
+.home-container ul li strong {
     display: block;
     margin-bottom: 16px;
     color: #41414d;
-    
 }
 
-.profile-container ul li p+strong {
+.home-container ul li p+strong {
     margin-top: 32px;
 }
 
-.profile-container ul li p {
+.home-container ul li p {
     color: 737380;
     line-height: 21px;
     font-size: 16px;
 }
 
-.profile-container ul li input {
-position: absolute;
-right: 50px;
-top:25px;
-width: 60px;
-margin-bottom: 50px;
-}
-
-#btn_remove_meal {
+#btn_edit {
     position: absolute;
     right: 24px;
     top: 24px;
@@ -112,28 +116,7 @@ margin-bottom: 50px;
     margin-top: 30px;
 }
 
-#btn_remove_meal :hover {
+#btn_edit:hover {
     opacity: 0.7;
 }
 
-#finish-order  {
-    height: 60px;
-    width: 200px;
-    background: #e02041;
-    border: 0;
-    border-radius: 8px;
-    color: #FFF;
-    font-weight: 700;
-    margin-top: 24px;
-    display: inline-block;
-    text-align: center;
-    text-decoration: none;
-    font-size: 18px;
-    line-height: 60px;
-    transition:  0.3s;
-    margin-left: 82%;
-}
-
-#finish-order:hover {
-    opacity: 0.7;
-}

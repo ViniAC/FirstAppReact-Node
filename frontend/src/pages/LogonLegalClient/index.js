@@ -22,7 +22,7 @@ export default function Logon() {
             localStorage.setItem('legal_client_password', response.data.password);
             localStorage.setItem('legal_client_id', response.data.pk_id_legal_client);
 
-            history.push('/profile-legal-clients');
+            history.push('/home-legal-client');
         } catch (err) {
             alert('Falha no login, tente novamente.');
 

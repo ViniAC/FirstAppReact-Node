@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import logoImg from '../../assets/logo.svg';
-import { FiPower } from 'react-icons/fi';
+import { FiPower, FiUser } from 'react-icons/fi';
 import { IoMdAdd, IoIosRemove } from 'react-icons/io'
 import './styles.css';
 import { useHistory } from 'react-router-dom';
 import api from '../../services/api';
 
-export default function Profile() {
+export default function Home() {
 
     const [meals, setMeals] = useState([]);
     const [listOrder, setListOrder] = useState([]);
@@ -45,7 +45,7 @@ export default function Profile() {
     } */
 
     useEffect(() => {
-        api.get('profile', {
+        api.get('home-physical-client', {
             headers: {
                 Authorization: physical_client_email,
             }
@@ -98,9 +98,12 @@ export default function Profile() {
         history.push('/');
     }
 
+    function handleMyProfile(){
+        history.push('profile-physical-client');
+    }
 
     return (
-        <div className="profile-container">
+        <div className="home-container">
             <header>
                 <img src={logoImg} alt="Be The Hero" />
 
@@ -108,6 +111,10 @@ export default function Profile() {
 
                 <button onClick={handleLogout} type="button">
                     <FiPower size={18} color="#E02041" />
+                </button>
+
+                <button onClick={handleMyProfile} type="button" id="btn_my_profile">
+                    <FiUser size={18} color="#E02041" />
                 </button>
             </header>
             <form>

@@ -1,27 +1,34 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import Logon from './pages/Logon';
+import LogonPhysicalClient from './pages/LogonPhysicalClient';
 import RegisterPhysicalClient from './pages/RegisterPhysicalClient';
-import Profile from './pages/Profile';
+import Home_physical_client from './pages/Home_physical_client';
+import Profile_physical_client from './pages/Profile_physical_client';
 
 import LogonLegalClient from './pages/LogonLegalClient'
 import RegisterLegalClient from './pages/RegisterLegalClient'
+import Home_legal_client from './pages/Home_legal_client';
+import Profile_legal_client from './pages/Profile_legal_client';
+
+
 import NewMeal from './pages/NewMeals';
-import ProfileLegalClient from './pages/profile_legal_clients';
+
 
 export default function Routes() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact component={Logon} />
+                <Route path="/" exact component={LogonPhysicalClient} />
                 <Route path="/register-physical-client" component={RegisterPhysicalClient} />
-                <Route path="/profile" component={Profile} />
+                <Route path="/home-physical-client" component={Home_physical_client} />
+                <Route path="/profile-physical-client" component={Profile_physical_client} />
 
                 <Route path="/logon-legal-client" component={LogonLegalClient} />
                 <Route path="/register-legal-client" component={RegisterLegalClient} />
-                <Route path="/profile-legal-clients" component={ProfileLegalClient} />
-                
+                <Route path="/home-legal-client" component={Home_legal_client} />
+                <Route path="/profile-legal-client" component={Profile_legal_client} />
+
                 <Route path="/meals/new" component={NewMeal} />
             </Switch>
         </BrowserRouter>

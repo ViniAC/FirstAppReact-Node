@@ -17,7 +17,7 @@ export default function Logon() {
 
         try {
 
-            const response = await api.post('sessions', { email, password });
+            const response = await api.post('session-physical-client', { email, password });
 
             localStorage.setItem('physical_client_email', email);
             localStorage.setItem('physical_client_password', password);
@@ -26,7 +26,7 @@ export default function Logon() {
 
             console.log()
 
-            history.push('/profile');
+            history.push('/home-physical-client');
         } catch (err) {
             alert('Falha no login, tente novamente.');
 
