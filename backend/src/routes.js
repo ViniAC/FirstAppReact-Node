@@ -42,6 +42,7 @@ routes.put('/profile-physical-client', profile_physical_client_controller.update
 routes.get('/home-legal-client', home_legal_clients_controller.index);
 routes.post('/session-legal-client', session_legal_client_controller.create);
 routes.get('/profile-legal-client', profile_legal_client_controller.index);
+routes.put('/profile-legal-client', profile_legal_client_controller.update);
 
 
 routes.post('/order', order_controller.create);

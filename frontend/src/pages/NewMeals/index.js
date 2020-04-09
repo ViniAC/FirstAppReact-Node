@@ -31,7 +31,7 @@ export default function NewMeal() {
                 }
             })
 
-            history.push('/home-legal-clients');
+            history.push('/home-legal-client');
         } catch (err) {
             alert('Erro ao cadastrar prato, tente novamente.');
         }
