@@ -83,6 +83,7 @@ export default function Register() {
                     />
 
                     <input
+                        type= "date"
                         placeholder="Data de Nascimento"
                         value={date_birth}
                         onChange={event => setDt_birth(event.target.value)}
