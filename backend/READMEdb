@@ -1,0 +1,3 @@
+Para utilizar o MYSQL, verifique os campos de 'user','password','squema' no knexfile.js
+Execute o comando 'npx knex migrate:latest'
+Mude a conecção em connection.js para 'const connection = knex(configuration.production);'
