@@ -14,7 +14,6 @@ export default function Home() {
     const history = useHistory();
     const physical_client_name = localStorage.getItem('physical_client_name');
     const physical_client_email = localStorage.getItem('physical_client_email')
-    const physical_client_id = localStorage.getItem('physical_client_id')
 
     //Search for meals, update each key pressed
     const [newSearch, setNewSearch] = useState('');
@@ -60,8 +59,8 @@ export default function Home() {
     function handleRemoveMeal(mealId) {
         let copyOfList = listOrder.slice()
         for (let index = 0; index < copyOfList.length; index++) {
-            if (mealId == copyOfList[index].mealId) {
-                if (copyOfList[index].qt == 1) {
+            if (mealId === copyOfList[index].mealId) {
+                if (copyOfList[index].qt === 1) {
                     copyOfList.splice(index, 1);
                     setListOrder(copyOfList);
                     return
@@ -76,7 +75,7 @@ export default function Home() {
         let isInList = false
         let copyOfList = listOrder.slice()
         for (let index = 0; index < copyOfList.length; index++) {
-            if (mealId == copyOfList[index].mealId) {
+            if (mealId === copyOfList[index].mealId) {
                 copyOfList[index].qt++
                 isInList = true;
                 setListOrder(copyOfList);

@@ -29,9 +29,15 @@ export default function Register() {
 
         try {
             const response = await api.post('users', data);
-            alert(`Cadastro realizado com sucesso!`);
-            console.log(response)
-            history.push('/');
+
+            console.log(response);
+
+            if (response.data.verify_id === true) {
+                alert(response.data.response_success);
+                history.push('/');
+            } else {
+                alert(`Erro ao cadastrar usuário.`);
+            }
         } catch (err) {
             alert('Erro ao cadastrar usuário');
         }
@@ -75,7 +81,7 @@ export default function Register() {
                         onChange={event => setEmail(event.target.value)}
                     />
 
-                    <input 
+                    <input
                         type="password"
                         placeholder="Senha"
                         value={password}
@@ -83,7 +89,7 @@ export default function Register() {
                     />
 
                     <input
-                        type= "date"
+                        type="date"
                         placeholder="Data de Nascimento"
                         value={date_birth}
                         onChange={event => setDt_birth(event.target.value)}

@@ -29,13 +29,15 @@ export default function Register() {
             password,
         };
 
-        console.log(data);
-
         try {
             const response = await api.post('companies', data);
-            alert(`Seu ID de acesso: ${response.data.pk_id_legal_client}`);
-            console.log(response)
-            history.push('/');
+            if (response.data.verify_id === true) {
+                alert(`Seu ID de acesso: ${response.data.pk_id_legal_client}`);
+                history.push('/');
+            } else {
+                alert(`Erro ao cadastrar`);
+            }
+
         } catch (err) {
             alert('Erro ao cadastrar usuário');
         }

@@ -4,7 +4,7 @@ module.exports = {
 
 
 
-  development: {
+  production: {
     client: 'sqlite3',
     connection: {
       filename: './src/database/db.sqlite'
@@ -31,7 +31,7 @@ module.exports = {
     }
   },
 
-  production: {
+  development: {
     client: 'mysql2',
     connection: {
       host: '127.0.0.1',

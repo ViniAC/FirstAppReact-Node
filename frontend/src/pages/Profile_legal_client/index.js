@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './styles.css';
 import { FiArrowLeft } from 'react-icons/fi';
 import { FaRegEdit } from 'react-icons/fa'

@@ -24,8 +24,6 @@ export default function Logon() {
             localStorage.setItem('physical_client_name', response.data.name);
             localStorage.setItem('physical_client_id', response.data.pk_id_physical_client);
 
-            console.log()
-
             history.push('/home-physical-client');
         } catch (err) {
             alert('Falha no login, tente novamente.');

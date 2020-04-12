@@ -35,7 +35,6 @@ export default function Profile() {
     async function handleSaveButton() {
         const data = physical_client;
         try {
-            console.log(data);
             await api.put('profile-physical-client', data);
             alert('Dados alterados com sucesso');
         } catch (err) {

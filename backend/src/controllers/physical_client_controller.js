@@ -20,14 +20,22 @@ module.exports = {
     async create(request, response) {
         const { cpf, name, email, date_birth, password } = request.body;
 
-        await connection('tb_physical_client').insert({
-            cpf,
-            name,
-            email,
-            date_birth,
-            password,
-        })
+        let verify_id = false;
 
-        return response.json('Physical client created!');
+        const response_success = 'Physical client created!';
+
+        if (cpf !== '' && name !== '' && email !== '' && date_birth !== '' && password !== '') {
+
+            await connection('tb_physical_client').insert({
+                cpf,
+                name,
+                email,
+                date_birth,
+                password,
+            })
+            verify_id = true;
+            return response.json({ response_success, verify_id });
+        }
+        return response.json({ verify_id });
     }
 }
