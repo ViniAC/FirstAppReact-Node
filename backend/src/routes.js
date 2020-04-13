@@ -15,8 +15,9 @@ const profile_legal_client_controller = require('./controllers/profile_legal_cli
 
 const meal_controller = require('./controllers/meal_controller');
 
-
 const order_controller = require('./controllers/order_controller');
+
+const get_order_controller = require('./controllers/get_order_controller');
 
 
 routes.post('/users', physical_client_controller.create);
@@ -27,10 +28,6 @@ routes.post('/companies', legal_client_controller.create);
 routes.get('/companies', legal_client_controller.index);
 //routes.('/companies/:id', legal_client_controller.delete);
 
-
-
-routes.get('/meals', meal_controller.index);
-/* routes.get('/meals', meal_controller.index_order); */
 routes.post('/meals', meal_controller.create);
 routes.delete('/meals/:pk_id_meal', meal_controller.delete);
 
@@ -49,7 +46,7 @@ routes.put('/profile-legal-client', profile_legal_client_controller.update);
 routes.post('/order', order_controller.create);
 routes.get('/order', order_controller.index);
 
-
+routes.post('/get-order', get_order_controller.index);
 
 
 module.exports = routes;

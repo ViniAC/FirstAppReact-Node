@@ -23,25 +23,19 @@ export default function Home() {
 
     async function handleMakeOrder() {
 
-        console.log('teste', listOrder);
+        const response = await api.post('get-order', listOrder);
 
-        const data = {
-            listOrder
-        };
-
-        const response = await api.get('meals', data);
-
-        let data_order = [response.data];
+        let data_order = response.data;
 
         console.log(data_order);
 
-        /*         try {
+                try {
                     const response = await api.post('order', data_order);
                     alert(`Pedido realizado com sucesso`);
                      console.log(response)
                 } catch (err) {
                     alert('Erro ao fazer pedido.');
-                } */
+                }
     }
 
     useEffect(() => {

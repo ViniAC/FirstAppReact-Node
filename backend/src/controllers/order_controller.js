@@ -2,7 +2,7 @@ const connection = require('../database/connection');
 
 module.exports = {
     async create(request, response) {
-        const { description, price, fk_id_legal_client, fk_id_physical_client, fk_id_meal } = request.params;
+        const { pk_id_meal, meal_name, description, value, fk_id_legal_client, quantity } = request.params;
 
         var dateOldFormat = new Date();
         var date = dateOldFormat.toString();
