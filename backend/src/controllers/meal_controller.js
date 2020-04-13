@@ -18,31 +18,31 @@ module.exports = {
 
     async index(request, response) {
 
-        const { page = 1 } = request.query;
+        console.log(request.body);
 
-        const [count] = await connection('tb_meal').count('pk_id_meal');
+        const meals = [];
 
-        const meals = await connection('tb_meal')
-            .join('tb_legal_client', 'pk_id_legal_client', '=', 'tb_meal.fk_id_legal_client')
-            .limit(5)
-            .offset((page - 1) * 5)
-            .select([
-                'tb_meal.pk_id_meal',
-                'tb_meal.name as meal_name',
-                'tb_meal.description',
-                'tb_meal.value',
-                'tb_meal.fk_id_legal_client',
-                'tb_legal_client.name as companie_name',
-                'tb_legal_client.email',
-                'tb_legal_client.whatsapp',
-                'tb_legal_client.city',
-                'tb_legal_client.uf'
 
-            ]);
+        /* for (let i = 0; i < listOrder.length; i++) {
 
-        response.header('X-Total-Count', count['count(`pk_id_meal`)']);
+            meals = await connection('tb_meal')
+                .where('pk_id_meal', listOrder[i].mealId)
+                .join('tb_legal_client', 'pk_id_legal_client', '=', 'tb_meal.fk_id_legal_client')
+                .select([
+                    'tb_meal.pk_id_meal',
+                    'tb_meal.name as meal_name',
+                    'tb_meal.description',
+                    'tb_meal.value',
+                    'tb_meal.fk_id_legal_client',
+                    'tb_legal_client.name as companie_name',
+                    'tb_legal_client.email',
+                    'tb_legal_client.whatsapp',
+                    'tb_legal_client.city',
+                    'tb_legal_client.uf'
+                ]);
+        }
 
-        return response.json(meals);
+        return response.json(meals); */
     },
 
 

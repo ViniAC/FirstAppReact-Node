@@ -21,27 +21,28 @@ export default function Home() {
         setNewSearch(event.target.value);
     });
 
- /*    async function handleMakeOrder(event) {
-        event.preventDefault();
+    async function handleMakeOrder() {
+
+        console.log('teste', listOrder);
 
         const data = {
-            description,
-            price,
-            fk_id_legal_client,
-            fk_id_physical_client,
-            fk_id_meal,
+            listOrder
         };
 
-        console.log(data);
+        const response = await api.get('meals', data);
 
-        try {
-            const response = await api.post('order', data);
-            alert(`Pedido realizado com sucesso`);
-            console.log(response)
-        } catch (err) {
-            alert('Erro ao fazer pedido.');
-        }
-    } */
+        let data_order = [response.data];
+
+        console.log(data_order);
+
+        /*         try {
+                    const response = await api.post('order', data_order);
+                    alert(`Pedido realizado com sucesso`);
+                     console.log(response)
+                } catch (err) {
+                    alert('Erro ao fazer pedido.');
+                } */
+    }
 
     useEffect(() => {
         api.get('home-physical-client', {
@@ -63,9 +64,11 @@ export default function Home() {
                 if (copyOfList[index].qt === 1) {
                     copyOfList.splice(index, 1);
                     setListOrder(copyOfList);
+
                     return
                 }
                 copyOfList[index].qt--
+                console.log(listOrder);
             }
         }
         setListOrder(copyOfList);
@@ -79,9 +82,11 @@ export default function Home() {
                 copyOfList[index].qt++
                 isInList = true;
                 setListOrder(copyOfList);
+                console.log(listOrder);
             }
         }
         if (!isInList) {
+            console.log(listOrder);
             await setListOrder([
                 ...listOrder,
                 mealId = {
@@ -89,6 +94,7 @@ export default function Home() {
                     qt: 1
                 }
             ]);
+            console.log(listOrder);
         }
     }
 
@@ -97,7 +103,7 @@ export default function Home() {
         history.push('/');
     }
 
-    function handleMyProfile(){
+    function handleMyProfile() {
         history.push('profile-physical-client');
     }
 
@@ -146,7 +152,7 @@ export default function Home() {
                     </li>
                 ))}
             </ul>
-            <button id='finish-order'>Finalizar pedido</button>
+            <button id='finish-order' onClick={() => handleMakeOrder()}>Finalizar pedido</button>
         </div>
 
     );

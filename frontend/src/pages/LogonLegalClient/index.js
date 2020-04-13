@@ -43,6 +43,7 @@ export default function Logon() {
                     />
                     <input type="password" placeholder="Sua senha" value={password}
                         onChange={e => setPassword(e.target.value)}/>
+                        
                     <button className="button" type="submit">Entrar</button>
 
                     <Link className="back-link" to="/register-legal-client">

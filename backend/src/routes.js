@@ -30,6 +30,7 @@ routes.get('/companies', legal_client_controller.index);
 
 
 routes.get('/meals', meal_controller.index);
+/* routes.get('/meals', meal_controller.index_order); */
 routes.post('/meals', meal_controller.create);
 routes.delete('/meals/:pk_id_meal', meal_controller.delete);
 
@@ -47,6 +48,7 @@ routes.put('/profile-legal-client', profile_legal_client_controller.update);
 
 routes.post('/order', order_controller.create);
 routes.get('/order', order_controller.index);
+
 
 
 

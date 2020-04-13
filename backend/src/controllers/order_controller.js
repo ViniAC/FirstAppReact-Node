@@ -2,18 +2,10 @@ const connection = require('../database/connection');
 
 module.exports = {
     async create(request, response) {
-        const { description, price, fk_id_legal_client, fk_id_physical_client, fk_id_meal } = request.body;
-
-
-
-        /* 
-                fk_id_legal_client = alguma_coisa k k k 
-                fk_id_physical_client = alguma_coisa k k k 
-                fk_id_meal = alguma_coisa k k k  */
+        const { description, price, fk_id_legal_client, fk_id_physical_client, fk_id_meal } = request.params;
 
         var dateOldFormat = new Date();
         var date = dateOldFormat.toString();
-
 
         const [pk_id_order] = await connection('tb_order').insert({
             description,
@@ -32,4 +24,3 @@ module.exports = {
         return response.json(orders);
     },
 }
-
