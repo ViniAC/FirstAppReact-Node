@@ -15,17 +15,27 @@ export default function Profile() {
     const [edit, setEdit] = useState(true);
 
     const physical_client_id = localStorage.getItem('physical_client_id');
+    const physical_client_password = localStorage.getItem('physical_client_password');
 
 
     function handleBackHome() {
         history.push('home-physical-client')
     }
 
+    useEffect(() => {
+        try{
+            console.log(physical_client);
+            let res = physical_client.date_birth.substr(0, 10);
+            setClient(Object.assign(physical_client, {date_birth: res}));
+        }catch (err){}
+    },[physical_client]);
 
     useEffect(() => {
         api.get('profile-physical-client', {
             headers: {
                 Authorization: physical_client_id,
+                Id: physical_client_id,
+                Password: physical_client_password
             }
         }).then(response => {
             setClient(response.data[0]);
@@ -58,7 +68,7 @@ export default function Profile() {
             <h1>Seus dados: </h1>
             <ul>
                 <form>
-                <li key={physical_client.pk_id_physical_client}>
+                <li>
                     <strong>Nome:</strong>
                     <input 
                         disabled={edit}
