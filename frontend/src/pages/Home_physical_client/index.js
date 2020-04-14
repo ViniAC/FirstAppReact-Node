@@ -10,8 +10,8 @@ export default function Home() {
 
     const [meals, setMeals] = useState([]);
     const [listOrder, setListOrder] = useState([]);
-    const [displayQt, setDisplayQt] = useState(false);
-    
+    const [displayQt, setDisplayQt] = useState(true);
+
 
     const history = useHistory();
     const physical_client_name = localStorage.getItem('physical_client_name');
@@ -21,9 +21,21 @@ export default function Home() {
 
     //Search for meals, update each key pressed
     const [newSearch, setNewSearch] = useState('');
+    const [searchList, setSearchList] = useState([]);
     const onNewSearchChange = useCallback((event) => {
+        console.log(event.target.value);
+        setSearchList([]);
+        let newList = [];
+        const copyOfList = meals.slice();
+        for (let index = 0; index < copyOfList.length; index++) {
+            if (copyOfList[index].name.includes(event.target.value)){
+                newList.push(copyOfList[index]);
+            }
+        }
+        setSearchList(newList);
         setNewSearch(event.target.value);
     });
+
 
     async function handleMakeOrder() {
 
@@ -60,41 +72,31 @@ export default function Home() {
 
 
     function handleRemoveMeal(mealId) {
-        let copyOfList = listOrder.slice()
+        let copyOfList = meals.slice()
         for (let index = 0; index < copyOfList.length; index++) {
-            if (mealId === copyOfList[index].mealId) {
-                if (copyOfList[index].qt === 1) {
-                    copyOfList.splice(index, 1);
-                    setListOrder(copyOfList);
+            if (mealId === copyOfList[index].pk_id_meal) {
+                if (copyOfList[index].qt <= 1) {
+                    copyOfList[index].qt = 0;
+                    setMeals(copyOfList);
                     return
                 }
                 copyOfList[index].qt--
-
             }
         }
-        setListOrder(copyOfList);
+        setMeals(copyOfList);
     }
 
     async function handleAddMeal(mealId) {
-        let isInList = false
-        let copyOfList = listOrder.slice()
+        let copyOfList = meals.slice()
         for (let index = 0; index < copyOfList.length; index++) {
-            if (mealId === copyOfList[index].mealId) {
-                copyOfList[index].qt++
-                isInList = true;
-                setListOrder(copyOfList);
-
-            }
-        }
-        if (!isInList) {
-            console.log(listOrder);
-            setListOrder([
-                ...listOrder,
-                mealId = {
-                    mealId: mealId,
-                    qt: 1
+            if (mealId === copyOfList[index].pk_id_meal) {
+                let newValue = (copyOfList[index].qt += 1);
+                if (isNaN(newValue)) {
+                    newValue = 1;
                 }
-            ]);
+                Object.assign(copyOfList[index], { qt: newValue });
+                setMeals(copyOfList);
+            }
         }
     }
 
@@ -130,33 +132,66 @@ export default function Home() {
                 />
             </form>
             <h1>Pratos:</h1>
-            <ul >
-                {meals.map(meal => (
-                    <li key={meal.pk_id_meal}>
-                        <strong>PRATO:</strong>
-                        <p>{meal.name}</p>
+            {newSearch == '' && (
+                <ul >
+                    {meals.map(meal => (
+                        <li key={meal.pk_id_meal}>
+                            <strong>PRATO:</strong>
+                            <p>{meal.name}</p>
 
-                        <strong>Descrição:</strong>
-                        <p>{meal.description}</p>
+                            <strong>Descrição:</strong>
+                            <p>{meal.description}</p>
 
-                        <strong>VALOR:</strong>
-                        <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}</p>
+                            <strong>VALOR:</strong>
+                            <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}</p>
 
-                        <button onClick={() => handleAddMeal(meal.pk_id_meal)} type="button">
-                            <IoMdAdd size={20} color="gray" />
-                        </button>
+                            <button onClick={() => handleAddMeal(meal.pk_id_meal)} type="button">
+                                <IoMdAdd size={20} color="gray" />
+                            </button>
 
-                        <button id="btn_remove_meal" onClick={() => handleRemoveMeal(meal.pk_id_meal)} type="button">
-                            <IoIosRemove size={20} color="gray" />
-                        </button>
+                            <button id="btn_remove_meal" onClick={() => handleRemoveMeal(meal.pk_id_meal)} type="button">
+                                <IoIosRemove size={20} color="gray" />
+                            </button>
 
-                        {!displayQt && (
-                            <strong> Quantidade: { } </strong>
-                        )}
+                            {displayQt && (
+                                <strong> Quantidade: {meal.qt} </strong>
+                            )}
 
-                    </li>
-                ))}
-            </ul>
+                        </li>
+                    ))
+                    }
+                </ul>
+            )}
+            {newSearch != '' && (
+                <ul >
+                    {searchList.map(meal => (
+                        <li key={meal.pk_id_meal}>
+                            <strong>PRATO:</strong>
+                            <p>{meal.name}</p>
+
+                            <strong>Descrição:</strong>
+                            <p>{meal.description}</p>
+
+                            <strong>VALOR:</strong>
+                            <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}</p>
+
+                            <button onClick={() => handleAddMeal(meal.pk_id_meal)} type="button">
+                                <IoMdAdd size={20} color="gray" />
+                            </button>
+
+                            <button id="btn_remove_meal" onClick={() => handleRemoveMeal(meal.pk_id_meal)} type="button">
+                                <IoIosRemove size={20} color="gray" />
+                            </button>
+
+                            {displayQt && (
+                                <strong> Quantidade: {meal.qt} </strong>
+                            )}
+
+                        </li>
+                    ))
+                    }
+                </ul>
+            )}
             <button id='finish-order' onClick={() => handleMakeOrder()}>Finalizar pedido</button>
         </div >
 
