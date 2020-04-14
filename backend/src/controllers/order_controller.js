@@ -58,8 +58,6 @@ function calculaItemPriceOrder(order) {
 
     for (let i = 0; i < order.length; i++) {
 
-        console.log('teste', order[0]);
-
         item_price = 0;
 
         item_price = order[i].value * order[i].quantity
@@ -69,7 +67,6 @@ function calculaItemPriceOrder(order) {
             id_meal: order[i].pk_id_meal
         })
     };
-    console.log(all_items_prices);
     return all_items_prices;
 }
 

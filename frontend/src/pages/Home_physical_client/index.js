@@ -10,11 +10,14 @@ export default function Home() {
 
     const [meals, setMeals] = useState([]);
     const [listOrder, setListOrder] = useState([]);
+    const [displayQt, setDisplayQt] = useState(false);
+    
 
     const history = useHistory();
     const physical_client_name = localStorage.getItem('physical_client_name');
     const physical_client_email = localStorage.getItem('physical_client_email')
     const physical_client_id = localStorage.getItem('physical_client_id');
+
 
     //Search for meals, update each key pressed
     const [newSearch, setNewSearch] = useState('');
@@ -63,11 +66,10 @@ export default function Home() {
                 if (copyOfList[index].qt === 1) {
                     copyOfList.splice(index, 1);
                     setListOrder(copyOfList);
-
                     return
                 }
                 copyOfList[index].qt--
-                console.log(listOrder);
+
             }
         }
         setListOrder(copyOfList);
@@ -81,19 +83,18 @@ export default function Home() {
                 copyOfList[index].qt++
                 isInList = true;
                 setListOrder(copyOfList);
-                console.log(listOrder);
+
             }
         }
         if (!isInList) {
             console.log(listOrder);
-            await setListOrder([
+            setListOrder([
                 ...listOrder,
                 mealId = {
                     mealId: mealId,
                     qt: 1
                 }
             ]);
-            console.log(listOrder);
         }
     }
 
@@ -148,11 +149,16 @@ export default function Home() {
                         <button id="btn_remove_meal" onClick={() => handleRemoveMeal(meal.pk_id_meal)} type="button">
                             <IoIosRemove size={20} color="gray" />
                         </button>
+
+                        {!displayQt && (
+                            <strong> Quantidade: { } </strong>
+                        )}
+
                     </li>
                 ))}
             </ul>
             <button id='finish-order' onClick={() => handleMakeOrder()}>Finalizar pedido</button>
-        </div>
+        </div >
 
     );
 }

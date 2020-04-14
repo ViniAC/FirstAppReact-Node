@@ -23,15 +23,15 @@ export default function Profile() {
     }
 
     useEffect(() => {
-        try{
+        try {
 
             setEdit(false);
             let res = physical_client.date_birth.substr(0, 10);
-            setClient(Object.assign(physical_client, {date_birth: res}));
+            setClient(Object.assign(physical_client, { date_birth: res }));
             setEdit(true);
 
-        }catch (err){}
-    },[physical_client]);
+        } catch (err) { }
+    }, [physical_client]);
 
     useEffect(() => {
         api.get('profile-physical-client', {
@@ -44,15 +44,26 @@ export default function Profile() {
             setClient(response.data[0]);
         })
     }, [physical_client_id]);
+
+
     async function handleDeleteAccount() {
         let id = physical_client.pk_id_physical_client;
-        const response = api.delete('profile-physical-client', {
-            headers: {
-                Authorization: id
-            }
-        });
-        alert(response);
+
+        try {
+            api.delete('profile-physical-client', {
+                headers: {
+                    Authorization: id
+                }
+
+            });
+            history.push('/');
+            alert('Usuário deletado com sucesso.');
+        } catch {
+            alert('Erro ao deletar usuário');
+        }
     }
+
+
     async function handleSaveButton() {
         const data = physical_client;
         try {
@@ -79,50 +90,50 @@ export default function Profile() {
             <h1>Seus dados: </h1>
             <ul>
                 <form>
-                <li>
-                    <strong>Nome:</strong>
-                    <input 
-                        disabled={edit}
-                        defaultValue={physical_client.name}
-                        onChange={(event) => {
-                            setClient(Object.assign(physical_client, {name: event.target.value}))
-                        }}
-                    />
+                    <li>
+                        <strong>Nome:</strong>
+                        <input
+                            disabled={edit}
+                            defaultValue={physical_client.name}
+                            onChange={(event) => {
+                                setClient(Object.assign(physical_client, { name: event.target.value }))
+                            }}
+                        />
 
-                    <strong>CPF:</strong>
+                        <strong>CPF:</strong>
 
-                    <input 
-                        disabled={edit}
-                        defaultValue={physical_client.cpf}
-                        onChange={(event) => {
-                            setClient(Object.assign(physical_client, {cpf: event.target.value}))
-                        }}
-                    />
+                        <input
+                            disabled={edit}
+                            defaultValue={physical_client.cpf}
+                            onChange={(event) => {
+                                setClient(Object.assign(physical_client, { cpf: event.target.value }))
+                            }}
+                        />
 
-                    <strong>E-Mail:</strong>
-                    <input 
-                        disabled={edit}
-                        defaultValue={physical_client.email}
-                        onChange={(event) => {
-                            setClient(Object.assign(physical_client, {newEmail: event.target.value}))
-                        }}
-                    />
+                        <strong>E-Mail:</strong>
+                        <input
+                            disabled={edit}
+                            defaultValue={physical_client.email}
+                            onChange={(event) => {
+                                setClient(Object.assign(physical_client, { newEmail: event.target.value }))
+                            }}
+                        />
 
-                    <strong>Data de Nascimento:</strong>
-                    <p>{physical_client.date_birth}</p>
-                    <button
-                        id='delete'
-                        type="button"
-                        onClick={handleDeleteAccount}>
-                        <FiTrash2 size={20} color="gray" />
-                    </button>
-                    <button 
-                        type="button"
-                        onClick={() => setEdit(!edit)}>
-                        <FaRegEdit size={20} color="gray" />
-                    </button>
-                    <button onClick={handleSaveButton}id='save'>Salvar</button>
-                </li>
+                        <strong>Data de Nascimento:</strong>
+                        <p>{physical_client.date_birth}</p>
+                        <button
+                            id='delete'
+                            type="button"
+                            onClick={handleDeleteAccount}>
+                            <FiTrash2 size={20} color="gray" />
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setEdit(!edit)}>
+                            <FaRegEdit size={20} color="gray" />
+                        </button>
+                        <button onClick={handleSaveButton} id='save'>Salvar</button>
+                    </li>
                 </form>
             </ul>
         </div>

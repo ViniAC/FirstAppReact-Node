@@ -33,12 +33,18 @@ export default function Profile() {
 
     async function handleDeleteAccount() {
         let id = legal_client.pk_id_legal_client;
-        const response = api.delete('profile-legal-client', {
-            headers: {
-                authorization: id
-            }
-        });
-        alert(response);
+
+        try {
+            api.delete('profile-legal-client', {
+                headers: {
+                    authorization: id
+                }
+            });
+            alert('Usuário deletado com sucesso.');
+            history.push('/');
+        } catch {
+            alert('Erroao deletar usuário.');
+        }
     }
 
     async function handleSaveButton() {

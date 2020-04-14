@@ -22,7 +22,7 @@ module.exports = {
 
         let verify_id = false;
 
-        const response_success = 'Physical client created!';
+        const response_success = 'Usuário criado com sucesso!';
 
         if (cpf !== '' && name !== '' && email !== '' && date_birth !== '' && password !== '') {
 
