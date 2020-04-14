@@ -9,16 +9,12 @@ import api from '../../services/api';
 export default function Home() {
 
     const [meals, setMeals] = useState([]);
-    const [displayQt, setDisplayQt] = useState(true);
-
 
     const history = useHistory();
     const physical_client_name = localStorage.getItem('physical_client_name');
     const physical_client_email = localStorage.getItem('physical_client_email')
     const physical_client_id = localStorage.getItem('physical_client_id');
 
-
-    //Search for meals, update each key pressed
     const [newSearch, setNewSearch] = useState('');
     const [searchList, setSearchList] = useState([]);
 
@@ -27,7 +23,7 @@ export default function Home() {
         let newList = [];
         const copyOfList = meals.slice();
         for (let index = 0; index < copyOfList.length; index++) {
-            if (copyOfList[index].name.includes(event.target.value)){
+            if (copyOfList[index].name.includes(event.target.value)) {
                 newList.push(copyOfList[index]);
             }
         }
@@ -39,7 +35,7 @@ export default function Home() {
     async function handleMakeOrder() {
         let listOrder = []
         for (let index = 0; index < meals.length; index++) {
-            if (meals[index].qt > 0){
+            if (meals[index].qt > 0) {
                 listOrder.push({
                     mealId: meals[index].pk_id_meal,
                     qt: meals[index].qt
@@ -160,8 +156,8 @@ export default function Home() {
                                 <IoIosRemove size={20} color="gray" />
                             </button>
 
-                            {displayQt && (
-                                <strong> Quantidade: {meal.qt} </strong>
+                            {meal.qt >= 1 && (
+                                <strong id="quantity"> {meal.qt} </strong>
                             )}
 
                         </li>
@@ -190,8 +186,8 @@ export default function Home() {
                                 <IoIosRemove size={20} color="gray" />
                             </button>
 
-                            {displayQt && (
-                                <strong> Quantidade: {meal.qt} </strong>
+                            {meal.qt >= 1 && (
+                                <strong id="quantity"> {meal.qt} </strong>
                             )}
 
                         </li>
