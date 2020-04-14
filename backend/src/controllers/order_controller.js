@@ -1,22 +1,35 @@
 const connection = require('../database/connection');
+const crypto = require('crypto');
 
 module.exports = {
     async create(request, response) {
-        const { pk_id_meal, meal_name, description, value, fk_id_legal_client, quantity } = request.params;
 
-        var dateOldFormat = new Date();
-        var date = dateOldFormat.toString();
+        const order = request.body;
+        const physical_client_id = request.headers.authorization;
 
-        const [pk_id_order] = await connection('tb_order').insert({
-            description,
-            price,
-            date,
-            fk_id_legal_client,
-            fk_id_physical_client,
-            fk_id_meal
-        })
+        let total_price = calculateTotalPriceOrder(order);
+        let item_prices = calculaItemPriceOrder(order);
 
-        return response.json('Success! ID do maluco: ' + pk_id_order);
+        let date = new Date();
+
+        const pk_id_order = crypto.randomBytes(4).toString('HEX');
+
+        for (let i = 0; i < order.length; i++) {
+            await connection('tb_order').insert({
+                pk_id_order,
+                description: order[i].description,
+                unit_price: order[i].value,
+                item_price: item_prices[i].item_price,
+                total_price,
+                quantity: order[i].quantity,
+                date,
+                fk_id_legal_client: order[i].fk_id_legal_client,
+                fk_id_physical_client: physical_client_id,
+                fk_id_meal: order[i].pk_id_meal
+            })
+        }
+
+        return response.json('Success! ID do pedido');
     },
 
     async index(request, response) {
@@ -24,3 +37,41 @@ module.exports = {
         return response.json(orders);
     },
 }
+
+function calculateTotalPriceOrder(order) {
+
+    let item_price = 0;
+    let total_price = 0
+
+    for (let i = 0; i < order.length; i++) {
+        item_price = order[i].value * order[i].quantity
+
+        total_price = total_price + item_price;
+    }
+    return (total_price)
+}
+
+function calculaItemPriceOrder(order) {
+
+    let item_price;
+    let all_items_prices = []
+
+    for (let i = 0; i < order.length; i++) {
+
+        console.log('teste', order[0]);
+
+        item_price = 0;
+
+        item_price = order[i].value * order[i].quantity
+
+        all_items_prices.push({
+            item_price: item_price,
+            id_meal: order[i].pk_id_meal
+        })
+    };
+    console.log(all_items_prices);
+    return all_items_prices;
+}
+
+
+

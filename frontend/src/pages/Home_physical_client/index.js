@@ -14,6 +14,7 @@ export default function Home() {
     const history = useHistory();
     const physical_client_name = localStorage.getItem('physical_client_name');
     const physical_client_email = localStorage.getItem('physical_client_email')
+    const physical_client_id = localStorage.getItem('physical_client_id');
 
     //Search for meals, update each key pressed
     const [newSearch, setNewSearch] = useState('');
@@ -29,13 +30,17 @@ export default function Home() {
 
         console.log(data_order);
 
-                try {
-                    const response = await api.post('order', data_order);
-                    alert(`Pedido realizado com sucesso`);
-                     console.log(response)
-                } catch (err) {
-                    alert('Erro ao fazer pedido.');
+        try {
+            const response = await api.post('order', data_order, {
+                headers: {
+                    Authorization: physical_client_id,
                 }
+            });
+            alert(`Pedido realizado com sucesso`);
+            console.log(response)
+        } catch (err) {
+            alert('Erro ao fazer pedido.');
+        }
     }
 
     useEffect(() => {

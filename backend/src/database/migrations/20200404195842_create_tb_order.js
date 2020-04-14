@@ -1,9 +1,12 @@
 
 exports.up = function (knex) {
     return knex.schema.createTable('tb_order', function (table) {
-        table.increments('pk_id_order');
+        table.string('pk_id_order').notNullable();
         table.string('description').notNullable();
-        table.decimal('price').notNullable();
+        table.decimal('unit_price').notNullable();
+        table.decimal('item_price').notNullable();
+        table.int('quantity').notNullable();
+        table.decimal('total_price').notNullable();
         table.timestamp('date');
 
         table.string('fk_id_legal_client').notNullable();
