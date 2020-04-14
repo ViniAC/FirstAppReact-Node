@@ -48,7 +48,7 @@ export default function Profile() {
         let id = physical_client.pk_id_physical_client;
         const response = api.delete('profile-physical-client', {
             headers: {
-                authorization: id
+                Authorization: id
             }
         });
         alert(response);

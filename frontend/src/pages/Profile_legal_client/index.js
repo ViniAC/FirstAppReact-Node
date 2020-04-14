@@ -21,7 +21,6 @@ export default function Profile() {
         history.push('home-legal-client')
     }
 
-
     useEffect(() => {
         api.get('profile-legal-client', {
             headers: {
