@@ -3,7 +3,7 @@ import api from '../../services/api';
 import { useHistory } from 'react-router-dom';
 import { FaRegEdit } from 'react-icons/fa'
 import './styles.css';
-import { FiArrowLeft } from 'react-icons/fi';
+import { FiArrowLeft, FiTrash2 } from 'react-icons/fi';
 
 export default function Profile() {
 
@@ -24,9 +24,12 @@ export default function Profile() {
 
     useEffect(() => {
         try{
-            console.log(physical_client);
+
+            setEdit(false);
             let res = physical_client.date_birth.substr(0, 10);
             setClient(Object.assign(physical_client, {date_birth: res}));
+            setEdit(true);
+
         }catch (err){}
     },[physical_client]);
 
@@ -41,7 +44,15 @@ export default function Profile() {
             setClient(response.data[0]);
         })
     }, [physical_client_id]);
-
+    async function handleDeleteAccount() {
+        let id = physical_client.pk_id_physical_client;
+        const response = api.delete('profile-physical-client', {
+            headers: {
+                authorization: id
+            }
+        });
+        alert(response);
+    }
     async function handleSaveButton() {
         const data = physical_client;
         try {
@@ -99,7 +110,12 @@ export default function Profile() {
 
                     <strong>Data de Nascimento:</strong>
                     <p>{physical_client.date_birth}</p>
-
+                    <button
+                        id='delete'
+                        type="button"
+                        onClick={handleDeleteAccount}>
+                        <FiTrash2 size={20} color="gray" />
+                    </button>
                     <button 
                         type="button"
                         onClick={() => setEdit(!edit)}>

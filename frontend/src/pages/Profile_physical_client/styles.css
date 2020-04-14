@@ -13,6 +13,9 @@
     margin-bottom: auto;
     outline: none;
 }
+#delete {
+    margin-right: 5%;
+}
 
 #save  {
     height: 60px;

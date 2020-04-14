@@ -36,12 +36,13 @@ routes.get('/home-physical-client', home_physical_client_controller.index);
 routes.post('/session-physical-client', session_physical_client_controller.create);
 routes.get('/profile-physical-client', profile_physical_client_controller.index);
 routes.put('/profile-physical-client', profile_physical_client_controller.update);
+routes.delete('/profile-physical-client', profile_physical_client_controller.delete);
 
 routes.get('/home-legal-client', home_legal_clients_controller.index);
 routes.post('/session-legal-client', session_legal_client_controller.create);
 routes.get('/profile-legal-client', profile_legal_client_controller.index);
 routes.put('/profile-legal-client', profile_legal_client_controller.update);
-
+routes.delete('/profile-legal-client', profile_legal_client_controller.delete);
 
 routes.post('/order', order_controller.create);
 routes.get('/order', order_controller.index);

@@ -26,5 +26,22 @@ module.exports = {
             .update({ name: name, cpf: cpf, email: newEmail, date_birth: date_birth});
 
             return response.json(update_user);
+    },
+
+    async delete(request, response) {
+        const pk_id_physical_client = request.headers.authorization;
+        
+        const user = await connection('tb_physical_client')
+            .where('pk_id_physical_client', pk_id_physical_client)
+            .select('pk_id_physical_client')
+            .first();
+
+        if (user.pk_id_physical_client != pk_id_physical_client) {
+            return response.status(401).json({ error: 'Operation not permitted' });
+        }
+
+        await connection('tb_physical_client').where('pk_id_physical_client', pk_id_physical_client).delete();
+
+        return response.status(204).send();
     }
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 import { useHistory } from 'react-router-dom';
 import './styles.css';
-import { FiArrowLeft } from 'react-icons/fi';
+import { FiArrowLeft, FiTrash2 } from 'react-icons/fi';
 import { FaRegEdit } from 'react-icons/fa'
 
 export default function Profile() {
@@ -31,6 +31,16 @@ export default function Profile() {
             setClient(response.data[0]);
         })
     }, [legal_client_id]);
+
+    async function handleDeleteAccount() {
+        let id = legal_client.pk_id_legal_client;
+        const response = api.delete('profile-legal-client', {
+            headers: {
+                authorization: id
+            }
+        });
+        alert(response);
+    }
 
     async function handleSaveButton() {
         const data = legal_client;
@@ -106,7 +116,12 @@ export default function Profile() {
                                 setClient(Object.assign(legal_client, { uf: event.target.value }))
                             }}
                         />
-
+                        <button
+                            id='delete'
+                            type="button"
+                            onClick={handleDeleteAccount}>
+                            <FiTrash2 size={20} color="gray" />
+                        </button>
                         <button
                             type="button"
                             onClick={() => setEdit(!edit)}>
