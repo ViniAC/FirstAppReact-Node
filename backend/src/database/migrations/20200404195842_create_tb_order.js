@@ -5,7 +5,7 @@ exports.up = function (knex) {
         table.string('description').notNullable();
         table.decimal('unit_price').notNullable();
         table.decimal('item_price').notNullable();
-        table.int('quantity').notNullable();
+        table.integer('quantity').notNullable();
         table.decimal('total_price').notNullable();
         table.timestamp('date');
 
