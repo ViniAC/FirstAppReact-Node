@@ -9,7 +9,6 @@ import api from '../../services/api';
 export default function Home() {
 
     const [meals, setMeals] = useState([]);
-    const [listOrder, setListOrder] = useState([]);
     const [displayQt, setDisplayQt] = useState(true);
 
 
@@ -22,8 +21,8 @@ export default function Home() {
     //Search for meals, update each key pressed
     const [newSearch, setNewSearch] = useState('');
     const [searchList, setSearchList] = useState([]);
+
     const onNewSearchChange = useCallback((event) => {
-        console.log(event.target.value);
         setSearchList([]);
         let newList = [];
         const copyOfList = meals.slice();
@@ -38,7 +37,15 @@ export default function Home() {
 
 
     async function handleMakeOrder() {
-
+        let listOrder = []
+        for (let index = 0; index < meals.length; index++) {
+            if (meals[index].qt > 0){
+                listOrder.push({
+                    mealId: meals[index].pk_id_meal,
+                    qt: meals[index].qt
+                })
+            }
+        }
         const response = await api.post('get-order', listOrder);
 
         let data_order = response.data;
