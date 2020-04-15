@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import './styles.css';
 import { FiArrowLeft, FiTrash2 } from 'react-icons/fi';
 import { FaRegEdit } from 'react-icons/fa'
+import Button from '@material-ui/core/Button'
 
 export default function Profile() {
 
@@ -15,6 +16,18 @@ export default function Profile() {
 
     const legal_client_id = localStorage.getItem('legal_client_id');
 
+    const saveButton = {
+        height: '60px',
+        width: '100px', 
+        textTransform: 'none', 
+        background: '#e02041',
+        color: '#fff',
+        fontSize: '18px',
+        lineHeight: '50px',
+        transition:  '0.3s',
+        // marginLeft: '82%',
+        // marginTop: '100%'
+        }
 
 
     function handleBackHome() {
@@ -132,8 +145,9 @@ export default function Profile() {
                             onClick={() => setEdit(!edit)}>
                             <FaRegEdit size={20} color="gray" />
                         </button>
-                        <button onClick={handleSaveButton} id='save'>Salvar</button>
+                        {/* <Button style={saveButton} onClick={handleSaveButton} id='save'>Salvar</Button> */}
                     </li>
+                    <Button style={saveButton} onClick={handleSaveButton} id='save'>Salvar</Button>
                 </form>
             </ul>
         </div>

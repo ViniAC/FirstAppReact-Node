@@ -19,15 +19,16 @@ export default function Profile() {
     const physical_client_password = localStorage.getItem('physical_client_password');
 
     const saveButton = {
-    height: '60px',
-    width: '100px', 
-    textTransform: 'none', 
-    background: '#e02041',
-    fontSize: '18px',
-    lineHeight: '50px',
-    transition:  '0.3s',
-    marginLeft: '82%',
-    marginTop: '70%'
+        height: '60px',
+        width: '100px',
+        textTransform: 'none',
+        background: '#e02041',
+        color: '#fff',
+        fontSize: '18px',
+        lineHeight: '50px',
+        transition: '0.3s',
+        marginLeft: '82%',
+        marginTop: '70%'
     }
     function handleBackHome() {
         history.push('home-physical-client')
@@ -143,8 +144,9 @@ export default function Profile() {
                             onClick={() => setEdit(!edit)}>
                             <FaRegEdit size={20} color="gray" />
                         </button>
-                        <Button style={saveButton}onClick={handleSaveButton} id='save'>Salvar</Button>
+                        {/* <Button style={saveButton} onClick={handleSaveButton} id='save'>Salvar</Button> */}
                     </li>
+                    <Button style={saveButton} onClick={handleSaveButton} id='save'>Salvar</Button>
                 </form>
             </ul>
         </div>
