@@ -4,6 +4,8 @@ import logoImg from '../../assets/logo.svg';
 import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import api from '../../services/api';
+import Button from '@material-ui/core/Button';
+import { ButtonStyle } from '../../assets/ButtonStyle'
 
 export default function Register() {
 
@@ -95,7 +97,7 @@ export default function Register() {
                         onChange={event => setDt_birth(event.target.value)}
                     />
 
-                    <button className="button" type="submit">Cadastrar</button>
+                    <Button variant="contained" style={ButtonStyle} className="button" type="submit">Cadastrar</Button>
 
                 </form>
             </div>

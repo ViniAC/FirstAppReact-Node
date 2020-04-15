@@ -5,6 +5,9 @@ import { IoMdAdd, IoIosRemove } from 'react-icons/io'
 import './styles.css';
 import { useHistory } from 'react-router-dom';
 import api from '../../services/api';
+import Button from '@material-ui/core/Button'
+import {ButtonStyle} from '../../assets/ButtonStyle'
+
 
 export default function Home() {
 
@@ -17,6 +20,26 @@ export default function Home() {
 
     const [newSearch, setNewSearch] = useState('');
     const [searchList, setSearchList] = useState([]);
+
+    const finishButton = {
+        size: 'small',
+        textTransform: 'none',
+        height: 60,
+        width: 200,
+        background: '#e02041',
+        border: 0,
+        borderRadius: 8,
+        color: '#FFF',
+        fontWeight: 700,
+        marginTop: 24,
+       // display: 'inline-block',
+        textAlign: 'center',
+        textDecoration: 'none',
+        fontSize: '18px',
+        lineHeight: '60px',
+        transition: '0.3s',
+        marginLeft: '82%'
+    }
 
     const onNewSearchChange = useCallback((event) => {
         setSearchList([]);
@@ -195,7 +218,7 @@ export default function Home() {
                     }
                 </ul>
             )}
-            <button id='finish-order' onClick={() => handleMakeOrder()}>Finalizar pedido</button>
+            <Button id='finish-order' style={ButtonStyle} onClick={() => handleMakeOrder()}>Finalizar pedido</Button>
         </div >
 
     );

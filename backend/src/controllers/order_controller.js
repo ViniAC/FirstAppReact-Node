@@ -64,9 +64,9 @@ function calculaItemPriceOrder(order) {
 
         all_items_prices.push({
             item_price: item_price,
-            id_meal: order[i].pk_id_meal
         })
     };
+
     return all_items_prices;
 }
 

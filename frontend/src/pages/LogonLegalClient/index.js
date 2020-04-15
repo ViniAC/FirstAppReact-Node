@@ -5,6 +5,8 @@ import heroImg from '../../assets/heroes.png'
 import logoImg from '../../assets/logo.svg'
 import { FiLogIn, FiArrowLeft } from 'react-icons/fi';
 import api from '../../services/api';
+import Button from '@material-ui/core/Button';
+import { ButtonStyle } from '../../assets/ButtonStyle'
 
 export default function Logon() {
 
@@ -44,7 +46,7 @@ export default function Logon() {
                     <input type="password" placeholder="Sua senha" value={password}
                         onChange={e => setPassword(e.target.value)}/>
                         
-                    <button className="button" type="submit">Entrar</button>
+                    <Button className="button" style={ButtonStyle} type="submit">Entrar</Button>
 
                     <Link className="back-link" to="/register-legal-client">
                         <FiLogIn size={16} color="#E02041" />

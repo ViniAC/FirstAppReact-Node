@@ -4,6 +4,8 @@ import logoImg from '../../assets/logo.svg';
 import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import api from '../../services/api'
+import Button from '@material-ui/core/Button';
+import { ButtonStyle } from '../../assets/ButtonStyle'
 
 export default function NewMeal() {
 
@@ -48,7 +50,7 @@ export default function NewMeal() {
                     <h1>Cadastro de novos pratos</h1>
                     <p>Cadastre pratos deliciosos!</p>
 
-                    <Link className="back-link" to="/home-physical-client">
+                    <Link className="back-link" to="/home-legal-client">
                         <FiArrowLeft size={16} color="#E02041" />
                     Voltar para Home
                 </Link>
@@ -71,7 +73,7 @@ export default function NewMeal() {
                         onChange={e => setValue(e.target.value)}
                     />
 
-                    <button className="button" type="submit">Cadastrar</button>
+                    <Button className="button" style={ButtonStyle} type="submit">Cadastrar</Button>
 
                 </form>
             </div>

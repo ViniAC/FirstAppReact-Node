@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { FaRegEdit } from 'react-icons/fa'
 import './styles.css';
 import { FiArrowLeft, FiTrash2 } from 'react-icons/fi';
+import Button from '@material-ui/core/Button'
 
 export default function Profile() {
 
@@ -17,7 +18,17 @@ export default function Profile() {
     const physical_client_id = localStorage.getItem('physical_client_id');
     const physical_client_password = localStorage.getItem('physical_client_password');
 
-
+    const saveButton = {
+    height: '60px',
+    width: '100px', 
+    textTransform: 'none', 
+    background: '#e02041',
+    fontSize: '18px',
+    lineHeight: '50px',
+    transition:  '0.3s',
+    marginLeft: '82%',
+    marginTop: '70%'
+    }
     function handleBackHome() {
         history.push('home-physical-client')
     }
@@ -132,7 +143,7 @@ export default function Profile() {
                             onClick={() => setEdit(!edit)}>
                             <FaRegEdit size={20} color="gray" />
                         </button>
-                        <button onClick={handleSaveButton} id='save'>Salvar</button>
+                        <Button style={saveButton}onClick={handleSaveButton} id='save'>Salvar</Button>
                     </li>
                 </form>
             </ul>

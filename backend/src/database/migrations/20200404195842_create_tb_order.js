@@ -3,10 +3,10 @@ exports.up = function (knex) {
     return knex.schema.createTable('tb_order', function (table) {
         table.string('pk_id_order').notNullable();
         table.string('description').notNullable();
-        table.decimal('unit_price').notNullable();
-        table.decimal('item_price').notNullable();
+        table.float('unit_price').notNullable();
+        table.float('item_price').notNullable();
         table.integer('quantity').notNullable();
-        table.decimal('total_price').notNullable();
+        table.float('total_price').notNullable();
         table.timestamp('date');
 
         table.string('fk_id_legal_client').notNullable();
