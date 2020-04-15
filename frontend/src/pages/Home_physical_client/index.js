@@ -64,23 +64,28 @@ export default function Home() {
                     qt: meals[index].qt
                 })
             }
-        }
-        const response = await api.post('get-order', listOrder);
+        }if (listOrder.length !== 0) {
+            const response = await api.post('get-order', listOrder);
 
-        let data_order = response.data;
+            let data_order = response.data;
 
-        console.log(data_order);
+            console.log(data_order);
 
-        try {
-            const response = await api.post('order', data_order, {
-                headers: {
-                    Authorization: physical_client_id,
-                }
-            });
-            alert(`Pedido realizado com sucesso`);
-            console.log(response)
-        } catch (err) {
-            alert('Erro ao fazer pedido.');
+            try {
+                const response = await api.post('order', data_order, {
+                    headers: {
+                        Authorization: physical_client_id,
+                    }
+                });
+                alert(`Pedido realizado com sucesso`);
+                localStorage.setItem('id_order', response.data.pk_id_order);
+                console.log()
+                history.push('/order');
+            } catch (err) {
+                alert('Erro ao fazer pedido.');
+            }
+        } else {
+            alert('Insira pelo menos um item!');
         }
     }
 

@@ -10,6 +10,7 @@ import LogonLegalClient from './pages/LogonLegalClient'
 import RegisterLegalClient from './pages/RegisterLegalClient'
 import Home_legal_client from './pages/Home_legal_client';
 import Profile_legal_client from './pages/Profile_legal_client';
+import Confirmation_order from './pages/ConfirmationOrder';
 
 
 import NewMeal from './pages/NewMeals';
@@ -30,6 +31,8 @@ export default function Routes() {
                 <Route path="/profile-legal-client" component={Profile_legal_client} />
 
                 <Route path="/meals/new" component={NewMeal} />
+
+                <Route path="/order" component={Confirmation_order} />
             </Switch>
         </BrowserRouter>
     );

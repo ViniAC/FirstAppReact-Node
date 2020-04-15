@@ -10,6 +10,8 @@ module.exports = {
         let total_price = calculateTotalPriceOrder(order);
         let item_prices = calculaItemPriceOrder(order);
 
+        const mensage_success = 'Pedido criado com sucesso!';
+
         let date = new Date();
 
         const pk_id_order = crypto.randomBytes(4).toString('HEX');
@@ -29,12 +31,17 @@ module.exports = {
             })
         }
 
-        return response.json('Success! ID do pedido');
+        return response.json({ mensage_success, pk_id_order });
     },
 
     async index(request, response) {
-        const orders = await connection('tb_order').select('*');
-        return response.json(orders);
+        const pk_id_order = request.headers.authorization;
+
+        const order = await connection('tb_order')
+            .where('pk_id_order', pk_id_order)
+            .select('*');
+
+        return response.json(order);
     },
 }
 
