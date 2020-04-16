@@ -11,15 +11,15 @@ import { ButtonStyle } from '../../assets/ButtonStyle'
 
 export default function Home() {
 
-    const [meals, setMeals] = useState([]);
-
     const history = useHistory();
     const physical_client_name = localStorage.getItem('physical_client_name');
     const physical_client_email = localStorage.getItem('physical_client_email')
     const physical_client_id = localStorage.getItem('physical_client_id');
 
+    const [meals, setMeals] = useState([]);
     const [newSearch, setNewSearch] = useState('');
     const [searchList, setSearchList] = useState([]);
+    const [btnMyOrder, setBtnOrder] = useState(false);
 
     const finishButton = {
         size: 'small',
@@ -56,36 +56,40 @@ export default function Home() {
 
 
     async function handleMakeOrder() {
-        let listOrder = []
-        for (let index = 0; index < meals.length; index++) {
-            if (meals[index].qt > 0) {
-                listOrder.push({
-                    mealId: meals[index].pk_id_meal,
-                    qt: meals[index].qt
-                })
-            }
-        } if (listOrder.length !== 0) {
-            const response = await api.post('get-order', listOrder);
+        if (btnMyOrder === false) {
+            let listOrder = []
+            for (let index = 0; index < meals.length; index++) {
+                if (meals[index].qt > 0) {
+                    listOrder.push({
+                        mealId: meals[index].pk_id_meal,
+                        qt: meals[index].qt
+                    })
+                }
+            } if (listOrder.length !== 0) {
+                const response = await api.post('get-order', listOrder);
 
-            let data_order = response.data;
+                let data_order = response.data;
 
-            console.log(data_order);
+                console.log(data_order);
 
-            try {
-                const response = await api.post('order', data_order, {
-                    headers: {
-                        Authorization: physical_client_id,
-                    }
-                });
-                alert(`Pedido realizado com sucesso`);
-                localStorage.setItem('id_order', response.data.pk_id_order);
-                console.log()
-                history.push('/order');
-            } catch (err) {
-                alert('Erro ao fazer pedido.');
+                try {
+                    const response = await api.post('order', data_order, {
+                        headers: {
+                            Authorization: physical_client_id,
+                        }
+                    });
+                    alert(`Pedido realizado com sucesso`);
+                    localStorage.setItem('id_order', response.data.pk_id_order);
+                    console.log()
+                    history.push('/order');
+                } catch (err) {
+                    alert('Erro ao fazer pedido.');
+                }
+            } else {
+                alert('Insira pelo menos um item!');
             }
         } else {
-            alert('Insira pelo menos um item!');
+            alert('Já tem um pedido em andamento!');
         }
     }
 
@@ -93,9 +97,15 @@ export default function Home() {
         api.get('home-physical-client', {
             headers: {
                 Authorization: physical_client_email,
+                physical_client_id: physical_client_id
             }
         }).then(response => {
-            setMeals(response.data);
+            setMeals(response.data.meals);
+
+            if (response.data.orders.length > 0) {
+                setBtnOrder(true);
+                localStorage.setItem('id_order', response.data.orders[0].pk_id_order);
+            }
 
         })
     }, [physical_client_email]);
@@ -115,6 +125,10 @@ export default function Home() {
             }
         }
         setMeals(copyOfList);
+    }
+
+    function handleViewMyOrders() {
+        history.push('/order');
     }
 
     async function handleAddMeal(mealId) {
@@ -145,11 +159,19 @@ export default function Home() {
             <header>
 
                 <div>
+
                     <img src={logoImg} alt="Be The Hero" />
+
                     <span>Bem vindo(a), {physical_client_name}. </span>
+
                 </div>
 
                 <div>
+
+                    {btnMyOrder !== false && (
+                        <button onClick={() => handleViewMyOrders()} type="button">Visualizar meu pedido</button>
+                    )}
+
                     <button onClick={handleMyProfile} type="button">
                         <FiUser size={18} color="#E02041" />
                     </button>
@@ -157,6 +179,7 @@ export default function Home() {
                     <button onClick={handleLogout} type="button">
                         <FiPower size={18} color="#E02041" />
                     </button>
+
                 </div>
 
             </header>
@@ -188,6 +211,8 @@ export default function Home() {
                             <button id="btn_remove_meal" onClick={() => handleRemoveMeal(meal.pk_id_meal)} type="button">
                                 <IoIosRemove size={20} color="gray" />
                             </button>
+
+
 
                             {meal.qt >= 1 && (
                                 <strong id="quantity"> {meal.qt} </strong>

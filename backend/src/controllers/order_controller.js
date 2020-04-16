@@ -9,6 +9,7 @@ module.exports = {
 
         let total_price = calculateTotalPriceOrder(order);
         let item_prices = calculaItemPriceOrder(order);
+        let status = 'em_andamento';
 
         const mensage_success = 'Pedido criado com sucesso!';
 
@@ -24,6 +25,7 @@ module.exports = {
                 item_price: item_prices[i].item_price,
                 total_price,
                 quantity: order[i].quantity,
+                status: status,
                 date,
                 fk_id_legal_client: order[i].fk_id_legal_client,
                 fk_id_physical_client: physical_client_id,
@@ -36,9 +38,15 @@ module.exports = {
 
     async index(request, response) {
         const pk_id_order = request.headers.authorization;
+        const fk_id_physical_client = request.headers.id_physical_client
+        const status_in_progress = 'em_andamento';
 
         const order = await connection('tb_order')
             .where('pk_id_order', pk_id_order)
+            .and
+            .where('fk_id_physical_client', fk_id_physical_client)
+            .and
+            .where('status', status_in_progress)
             .select('*');
 
         return response.json(order);

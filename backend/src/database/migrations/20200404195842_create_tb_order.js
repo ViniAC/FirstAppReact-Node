@@ -4,9 +4,10 @@ exports.up = function (knex) {
         table.string('pk_id_order').notNullable();
         table.string('description').notNullable();
         table.float('unit_price').notNullable();
-        table.float('item_price').notNullable();
         table.integer('quantity').notNullable();
+        table.float('item_price').notNullable();
         table.float('total_price').notNullable();
+        table.string('status', 30).notNullable();
         table.timestamp('date');
 
         table.string('fk_id_legal_client').notNullable();
