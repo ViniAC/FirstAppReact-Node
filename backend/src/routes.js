@@ -30,6 +30,8 @@ routes.get('/companies', legal_client_controller.index);
 
 routes.post('/meals', meal_controller.create);
 routes.delete('/meals/:pk_id_meal', meal_controller.delete);
+routes.get('/meals', meal_controller.index);
+routes.put('/meals', meal_controller.update);
 
 
 routes.get('/home-physical-client', home_physical_client_controller.index);

@@ -11,6 +11,7 @@ import RegisterLegalClient from './pages/RegisterLegalClient'
 import Home_legal_client from './pages/Home_legal_client';
 import Profile_legal_client from './pages/Profile_legal_client';
 import Confirmation_order from './pages/ConfirmationOrder';
+import Edit_meal_legal_client from './pages/Edit_meal_legal_client';
 
 
 import NewMeal from './pages/NewMeals';
@@ -29,6 +30,7 @@ export default function Routes() {
                 <Route path="/register-legal-client" component={RegisterLegalClient} />
                 <Route path="/home-legal-client" component={Home_legal_client} />
                 <Route path="/profile-legal-client" component={Profile_legal_client} />
+                <Route path="/edit-meal-legal-client" component={Edit_meal_legal_client} />
 
                 <Route path="/meals/new" component={NewMeal} />
 

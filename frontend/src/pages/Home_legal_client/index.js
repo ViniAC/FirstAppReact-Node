@@ -9,6 +9,8 @@ export default function Home() {
 
     const [meals, setMeals] = useState([]);
 
+    const [edit, setEdit] = useState(true);
+
     const history = useHistory();
     const legal_client_id = localStorage.getItem('legal_client_id');
     const legal_client_name = localStorage.getItem('legal_client_name');
@@ -49,6 +51,11 @@ export default function Home() {
         history.push('profile-legal-client');
     }
 
+    function handleEditMeal(pk_id_meal) {
+        localStorage.setItem('meal_id', pk_id_meal);
+        history.push('edit-meal-legal-client')
+    }
+
     return (
         <div className="home-container">
             <header>
@@ -71,6 +78,7 @@ export default function Home() {
                 {meals.map(meal => (
                     <li key={meal.pk_id_meal}>
                         <strong>PRATO:</strong>
+                    
                         <p>{meal.name}</p>
 
                         <strong>Descrição:</strong>
@@ -79,10 +87,10 @@ export default function Home() {
                         <strong>VALOR:</strong>
                         <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}</p>
 
-                        <button onClick={() => handleDeleteMeal(meal.pk_id_meal)} type="button">
+                        <button id="btn_delete" onClick={() => handleDeleteMeal(meal.pk_id_meal)} type="button">
                             <FiTrash2 size={20} color="#a8a8b3" />
                         </button>
-                        <button id="btn_edit" type="button">
+                        <button id="btn_edit" onClick={() => handleEditMeal(meal.pk_id_meal)} type="button">
                             <FiEdit2 size={20} color="#a8a8b3" />
                         </button>
                     </li>
