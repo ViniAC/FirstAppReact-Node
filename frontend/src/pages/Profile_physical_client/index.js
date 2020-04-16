@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 import { useHistory } from 'react-router-dom';
+import logoImg from '../../assets/logo.svg';
 import { FaRegEdit } from 'react-icons/fa'
 import './styles.css';
 import { FiArrowLeft, FiTrash2 } from 'react-icons/fi';
@@ -90,13 +91,15 @@ export default function Profile() {
     return (
         <div className="home-container">
             <header>
-
-                <span>Olá, {physical_client.name}. </span>
-
-                <button onClick={handleBackHome} type="button">
-                    <FiArrowLeft size={18} color="#E02041" />
-                </button>
-
+                <div>
+                    <img src={logoImg} alt="Be The Hero" />
+                    <span>Olá, {physical_client.name}. </span>
+                </div>
+                <div>
+                    <button onClick={handleBackHome} type="button">
+                        <FiArrowLeft size={18} color="#E02041" />
+                    </button>
+                </div>
 
             </header>
             <h1>Seus dados: </h1>

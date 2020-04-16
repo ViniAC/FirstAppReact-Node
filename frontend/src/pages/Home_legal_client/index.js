@@ -59,26 +59,32 @@ export default function Home() {
     return (
         <div className="home-container">
             <header>
-                <img src={logoImg} alt="Be The Hero" />
 
-                <span>Bem vindo(a), {legal_client_name}. </span>
+                <div>
+                    <img src={logoImg} alt="Be The Hero" />
 
-                <Link className="button" to="/meals/new">Cadastrar novo Prato</Link>
+                    <span>Bem vindo(a), {legal_client_name}. </span>
+                </div>
 
-                <button onClick={handleLogout} type="button">
-                    <FiPower size={18} color="#E02041" />
-                </button>
+                <div>
+                    <Link className="button" to="/meals/new">Cadastrar novo Prato</Link>
 
-                <button onClick={handleMyProfile} type="button" id="btn_my_profile">
-                    <FiUser size={18} color="#E02041" />
-                </button>
+                    <button onClick={handleMyProfile} type="button">
+                        <FiUser size={18} color="#E02041" />
+                    </button>
+
+                    <button onClick={handleLogout} type="button">
+                        <FiPower size={18} color="#E02041" />
+                    </button>
+                </div>
+
             </header>
             <h1>Pratos Cadastrados</h1>
             <ul>
                 {meals.map(meal => (
                     <li key={meal.pk_id_meal}>
                         <strong>PRATO:</strong>
-                    
+
                         <p>{meal.name}</p>
 
                         <strong>Descrição:</strong>

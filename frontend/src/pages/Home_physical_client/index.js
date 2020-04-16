@@ -6,7 +6,7 @@ import './styles.css';
 import { useHistory } from 'react-router-dom';
 import api from '../../services/api';
 import Button from '@material-ui/core/Button'
-import {ButtonStyle} from '../../assets/ButtonStyle'
+import { ButtonStyle } from '../../assets/ButtonStyle'
 
 
 export default function Home() {
@@ -32,7 +32,7 @@ export default function Home() {
         color: '#FFF',
         fontWeight: 700,
         marginTop: 24,
-       // display: 'inline-block',
+        // display: 'inline-block',
         textAlign: 'center',
         textDecoration: 'none',
         fontSize: '18px',
@@ -64,7 +64,7 @@ export default function Home() {
                     qt: meals[index].qt
                 })
             }
-        }if (listOrder.length !== 0) {
+        } if (listOrder.length !== 0) {
             const response = await api.post('get-order', listOrder);
 
             let data_order = response.data;
@@ -143,17 +143,22 @@ export default function Home() {
     return (
         <div className="home-container">
             <header>
-                <img src={logoImg} alt="Be The Hero" />
 
-                <span>Bem vindo(a), {physical_client_name}. </span>
+                <div>
+                    <img src={logoImg} alt="Be The Hero" />
+                    <span>Bem vindo(a), {physical_client_name}. </span>
+                </div>
 
-                <button onClick={handleLogout} type="button">
-                    <FiPower size={18} color="#E02041" />
-                </button>
+                <div>
+                    <button onClick={handleMyProfile} type="button">
+                        <FiUser size={18} color="#E02041" />
+                    </button>
 
-                <button onClick={handleMyProfile} type="button" id="btn_my_profile">
-                    <FiUser size={18} color="#E02041" />
-                </button>
+                    <button onClick={handleLogout} type="button">
+                        <FiPower size={18} color="#E02041" />
+                    </button>
+                </div>
+
             </header>
             <form>
                 <input

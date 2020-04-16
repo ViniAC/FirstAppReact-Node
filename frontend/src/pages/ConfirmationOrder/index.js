@@ -3,7 +3,7 @@ import './styles.css';
 import { useHistory } from 'react-router-dom';
 import logoImg from '../../assets/logo.svg';
 import api from '../../services/api';
-import { FiPower } from 'react-icons/fi';
+import { FiPower, FiArrowLeft } from 'react-icons/fi';
 
 export default function ConfirmationOrder() {
 
@@ -17,6 +17,9 @@ export default function ConfirmationOrder() {
   function handleLogout() {
     localStorage.clear();
     history.push('/');
+  }
+  function handleBackHome() {
+    history.push('/home-physical-client');
   }
 
   useEffect(() => {
@@ -34,14 +37,20 @@ export default function ConfirmationOrder() {
   return (
     <div className="home-container">
       <header>
-        <img src={logoImg} alt="Be The Hero" />
+        <div>
+          <img src={logoImg} alt="Be The Hero" />
 
-        <span>Olá, {physical_client_name}. </span>
+          <span>Olá, {physical_client_name}. </span>
+        </div>
+        <div className="buttons">
+          <button onClick={handleBackHome} type="button">
+            <FiArrowLeft size={18} color="#E02041" />
+          </button>
 
-        <button onClick={handleLogout} type="button">
-          <FiPower size={18} color="#E02041" />
-        </button>
-
+          <button onClick={handleLogout} type="button">
+            <FiPower size={18} color="#E02041" />
+          </button>
+        </div>
       </header>
 
       <h1>Seu pedido:</h1>

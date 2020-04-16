@@ -8,6 +8,7 @@
 .home-container header {
   display: flex;
   align-items: center;
+  
 }
 
 .home-container header span {
@@ -33,10 +34,16 @@
   background: transparent;
   margin-left: 16px;
   transition: border-color 0.3s;
-  position: absolute;
+  position: relative;
   right: 24px;
   top: 24px;
+  
+}
 
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .home-container header button:hover {
