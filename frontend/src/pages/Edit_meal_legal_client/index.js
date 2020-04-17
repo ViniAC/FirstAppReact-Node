@@ -5,6 +5,7 @@ import './styles.css';
 import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 import Button from '@material-ui/core/Button'
+import Header from '../../Header';
 
 export default function Home() {
 
@@ -75,6 +76,8 @@ export default function Home() {
 
 
     return (
+        <>
+        <Header name={legal_client_name}/>
         <div className="home-container">
             <header>
                 <img src={logoImg} alt="Be The Hero" />
@@ -127,6 +130,6 @@ export default function Home() {
                 </form>
             </ul>
         </div>
-
+        </>
     );
 }

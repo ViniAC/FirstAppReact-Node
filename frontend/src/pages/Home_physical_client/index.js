@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import api from '../../services/api';
 import Button from '@material-ui/core/Button'
 import { ButtonStyle } from '../../assets/ButtonStyle'
-
+import Header from '../../Header';
 
 export default function Home() {
 
@@ -156,6 +156,7 @@ export default function Home() {
 
     return (
         <div className="home-container">
+            <Header name={physical_client_name}/>
             <header>
 
                 <div>
