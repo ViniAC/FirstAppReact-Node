@@ -8,15 +8,36 @@ import { FiPower, FiArrowLeft } from 'react-icons/fi';
 export default function ConfirmationOrder() {
 
   const [orders, setOrders] = useState([]);
-  const [pk_id_order, setIdOrder] = useState();
+  const [pk_id_order, setIdOrder] = useState('');
 
   const physical_client_name = localStorage.getItem('physical_client_name');
   const id_order = localStorage.getItem('id_order');
   const physical_client_id = localStorage.getItem('physical_client_id');
 
-
   const history = useHistory();
 
+  async function handleSaveButton() {
+    const data = orders;
+    try {
+      await api.put('order', data);
+      alert('pedido alterado com sucesso');
+      history.push('/order');
+    } catch (err) {
+      console.log(err);
+    } 
+  }
+
+  function handleCancelOrder() {
+    api.delete('order', {
+      headers: {
+        pk_id_order: id_order,
+        id_physical_client: physical_client_id
+      }
+    }).then(response => {
+      alert('Pedido deletado com sucesso!');
+      history.push('/home-physical-client');
+    })
+  }
   function handleLogout() {
     localStorage.clear();
     history.push('/');
@@ -32,8 +53,8 @@ export default function ConfirmationOrder() {
         id_physical_client: physical_client_id
       }
     }).then(response => {
+      setIdOrder(response.data[0].pk_id_order);
       setOrders(response.data);
-      setIdOrder(response.data.pk_id_order)
     })
   }, [id_order]);
 
@@ -58,9 +79,7 @@ export default function ConfirmationOrder() {
       </header>
 
       <h1>Seu pedido:</h1>
-
       <h2> {pk_id_order} </h2>
-
       <ul >
         {orders.map(order => (
           <li key={order.pk_id_order}>
@@ -78,13 +97,12 @@ export default function ConfirmationOrder() {
 
             <strong>Valor Total do pedido:</strong>
             <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(order.total_price)}</p>
-
           </li>
         ))
         }
       </ul>
 
-
+      <button id='cancelOrder' onClick={handleCancelOrder}>Cancelar pedido</button>
 
     </div >
   );

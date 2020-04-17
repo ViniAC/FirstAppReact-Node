@@ -48,6 +48,9 @@ routes.delete('/profile-legal-client', profile_legal_client_controller.delete);
 
 routes.post('/order', order_controller.create);
 routes.get('/order', order_controller.index);
+routes.delete('/order', order_controller.delete);
+routes.put('/order', order_controller.update);
+
 
 routes.post('/get-order', get_order_controller.index);
 

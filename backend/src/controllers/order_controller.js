@@ -6,12 +6,12 @@ module.exports = {
 
         const order = request.body;
         const physical_client_id = request.headers.authorization;
-
+        console.log(order);
         let total_price = calculateTotalPriceOrder(order);
         let item_prices = calculaItemPriceOrder(order);
         let status = 'em_andamento';
 
-        const mensage_success = 'Pedido criado com sucesso!';
+        const message_success = 'Pedido realizado com sucesso!';
 
         let date = new Date();
 
@@ -33,7 +33,7 @@ module.exports = {
             })
         }
 
-        return response.json({ mensage_success, pk_id_order });
+        return response.json({ message_success, pk_id_order });
     },
 
     async index(request, response) {
@@ -51,12 +51,49 @@ module.exports = {
 
         return response.json(order);
     },
+    async delete(request, response) {
+        const { pk_id_order, id_physical_client } = request.headers;
+        const status_in_progress = 'em_andamento';
+        const order = await connection('tb_order')
+            .where('pk_id_order', pk_id_order)
+            .and
+            .where('fk_id_physical_client', id_physical_client)
+            .select('fk_id_physical_client')
+            .first();
+
+        if (order.fk_id_physical_client != id_physical_client) {
+            return response.status(401).json({ error: 'Operation not permitted' });
+        } 
+        await connection('tb_order')
+            .where('pk_id_order', pk_id_order)
+            .and
+            .where('status', status_in_progress)
+            .delete();
+        return response.status(204).send();
+    },
+    async update(request, response) {
+        let orderList = request.body;
+        let totalPrice = 0;
+        for (let i = 0; i < orderList.length; i++) {
+            orderList[i].item_price = orderList[i].item_price * orderList[i].quantity
+            totalPrice += orderList[i].item_price;
+        }
+        for (let index = 0; index < orderList.length; index++) {
+            await connection('tb_order')
+            .where('pk_id_order', orderList[index].pk_id_order)
+            .and
+            .where('fk_id_physical_client', orderList[index].fk_id_physical_client)
+            .and
+            .where('fk_id_meal', orderList[index].fk_id_meal)
+            .update({ quantity: orderList[index].quantity, item_price: orderList[index].item_price, totalPrice: totalPrice });
+        }
+    }
 }
 
 function calculateTotalPriceOrder(order) {
 
     let item_price = 0;
-    let total_price = 0
+    let total_price = 0;
 
     for (let i = 0; i < order.length; i++) {
         item_price = order[i].value * order[i].quantity
@@ -69,7 +106,7 @@ function calculateTotalPriceOrder(order) {
 function calculaItemPriceOrder(order) {
 
     let item_price;
-    let all_items_prices = []
+    let all_items_prices = [];
 
     for (let i = 0; i < order.length; i++) {
 
