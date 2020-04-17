@@ -67,7 +67,6 @@ export default function Profile() {
                 headers: {
                     Authorization: id
                 }
-
             });
             history.push('/');
             alert('Usuário deletado com sucesso.');
@@ -142,7 +141,7 @@ export default function Profile() {
                             onClick={handleDeleteAccount}>
                             <FiTrash2 size={20} color="gray" />
                         </button>
-                        <button
+                        <button 
                             type="button"
                             onClick={() => setEdit(!edit)}>
                             <FaRegEdit size={20} color="gray" />

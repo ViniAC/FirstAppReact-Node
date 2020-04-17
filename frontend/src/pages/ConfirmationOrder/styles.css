@@ -37,7 +37,6 @@
   position: relative;
   right: 24px;
   top: 24px;
-  
 }
 
 header {
@@ -108,4 +107,21 @@ right: 50px;
 top:25px;
 width: 60px;
 margin-bottom: 50px;
+}
+
+#cancelOrder {
+    height: 60px;
+    width: 200px;
+    background: #e02041;
+    border: 0;
+    border-radius: 8px;
+    color: #FFF;
+    font-weight: 700;
+    margin-top: 24px;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 60px;
+    transition:  0.3s;
 }

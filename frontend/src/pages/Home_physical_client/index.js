@@ -78,7 +78,7 @@ export default function Home() {
                             Authorization: physical_client_id,
                         }
                     });
-                    alert(`Pedido realizado com sucesso`);
+                    alert(response.data.message_success);
                     localStorage.setItem('id_order', response.data.pk_id_order);
                     console.log()
                     history.push('/order');
