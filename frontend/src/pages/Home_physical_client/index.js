@@ -1,13 +1,14 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import logoImg from '../../assets/logo.svg';
-import { FiPower, FiUser } from 'react-icons/fi';
 import { IoMdAdd, IoIosRemove } from 'react-icons/io'
 import './styles.css';
 import { useHistory } from 'react-router-dom';
+import CardActions from '@material-ui/core/CardActions';
 import api from '../../services/api';
-import Button from '@material-ui/core/Button'
+import { Container, Grid, Button } from '@material-ui/core';
 import { ButtonStyle } from '../../assets/ButtonStyle'
 import Header from '../../Header';
+import Meal from './Meal';
 
 export default function Home() {
 
@@ -145,117 +146,68 @@ export default function Home() {
         }
     }
 
-    function handleLogout() {
-        localStorage.clear();
-        history.push('/');
-    }
 
-    function handleMyProfile() {
-        history.push('profile-physical-client');
-    }
+
 
     return (
-        <div className="home-container">
-            <Header name={physical_client_name}/>
-            <header>
+        <>
+            <Header profileType="profile-physical-client" name={physical_client_name} />
+            <Container>
 
-                <div>
+                <header>
+                    <div>
 
-                    <img src={logoImg} alt="Be The Hero" />
+                        {btnMyOrder !== false && (
+                            <button onClick={() => handleViewMyOrders()} type="button">Visualizar meu pedido</button>
+                        )}
+                    </div>
 
-                    <span>Bem vindo(a), {physical_client_name}. </span>
+                </header>
+                <form>
+                    <input
+                        placeholder="Nome do prato"
+                        value={newSearch}
+                        onChange={onNewSearchChange}
+                    />
+                </form>
+                <h1>Pratos:</h1>
 
-                </div>
+                {newSearch == '' && (
+                    <Grid xs={12} container direction="row" spacing="1">
+                        {meals.map(meal => (
 
-                <div>
+                            <Grid onClick={() => handleAddMeal(meal.pk_id_meal)} item xs={4} >
 
-                    {btnMyOrder !== false && (
-                        <button onClick={() => handleViewMyOrders()} type="button">Visualizar meu pedido</button>
-                    )}
+                                <Meal
+                                    name={meal.name}
+                                    description={meal.description}
+                                    value={Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}
+                                />
+                            </Grid>
 
-                    <button onClick={handleMyProfile} type="button">
-                        <FiUser size={18} color="#E02041" />
-                    </button>
+                        ))
+                        }
+                    </Grid>
+                )}
+                {newSearch != '' && (
+                    <Grid xs={12} container direction="row" spacing="1">
+                        {searchList.map(meal => (
+                            <Grid onClick={() => handleAddMeal(meal.pk_id_meal)} item xs={4}>
 
-                    <button onClick={handleLogout} type="button">
-                        <FiPower size={18} color="#E02041" />
-                    </button>
+                                <Meal
+                                    name={meal.name}
+                                    description={meal.description}
+                                    value={Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}
 
-                </div>
-
-            </header>
-            <form>
-                <input
-                    placeholder="Nome do prato"
-                    value={newSearch}
-                    onChange={onNewSearchChange}
-                />
-            </form>
-            <h1>Pratos:</h1>
-            {newSearch == '' && (
-                <ul >
-                    {meals.map(meal => (
-                        <li key={meal.pk_id_meal}>
-                            <strong>PRATO:</strong>
-                            <p>{meal.name}</p>
-
-                            <strong>Descrição:</strong>
-                            <p>{meal.description}</p>
-
-                            <strong>VALOR:</strong>
-                            <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}</p>
-
-                            <button onClick={() => handleAddMeal(meal.pk_id_meal)} type="button">
-                                <IoMdAdd size={20} color="gray" />
-                            </button>
-
-                            <button id="btn_remove_meal" onClick={() => handleRemoveMeal(meal.pk_id_meal)} type="button">
-                                <IoIosRemove size={20} color="gray" />
-                            </button>
-
-
-
-                            {meal.qt >= 1 && (
-                                <strong id="quantity"> {meal.qt} </strong>
-                            )}
-
-                        </li>
-                    ))
-                    }
-                </ul>
-            )}
-            {newSearch != '' && (
-                <ul >
-                    {searchList.map(meal => (
-                        <li key={meal.pk_id_meal}>
-                            <strong>PRATO:</strong>
-                            <p>{meal.name}</p>
-
-                            <strong>Descrição:</strong>
-                            <p>{meal.description}</p>
-
-                            <strong>VALOR:</strong>
-                            <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}</p>
-
-                            <button onClick={() => handleAddMeal(meal.pk_id_meal)} type="button">
-                                <IoMdAdd size={20} color="gray" />
-                            </button>
-
-                            <button id="btn_remove_meal" onClick={() => handleRemoveMeal(meal.pk_id_meal)} type="button">
-                                <IoIosRemove size={20} color="gray" />
-                            </button>
-
-                            {meal.qt >= 1 && (
-                                <strong id="quantity"> {meal.qt} </strong>
-                            )}
-
-                        </li>
-                    ))
-                    }
-                </ul>
-            )}
-            <Button id='finish-order' style={ButtonStyle} onClick={() => handleMakeOrder()}>Finalizar pedido</Button>
-        </div >
+                                />                       
+                            </Grid>
+                        ))
+                        }
+                    </Grid>
+                )}
+                <Button id='finish-order' style={ButtonStyle} onClick={() => handleMakeOrder()}>Finalizar pedido</Button>
+            </Container>
+        </>
 
     );
 }
