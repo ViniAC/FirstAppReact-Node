@@ -173,9 +173,8 @@ export default function Home() {
                 <h1>Pratos:</h1>
 
                 {newSearch == '' && (
-                    <Grid xs={12} container direction="row" spacing="1">
+                    <Grid xs={12} container direction="row" spacing="2">
                         {meals.map(meal => (
-
                             <Grid onClick={() => handleAddMeal(meal.pk_id_meal)} item xs={4} >
 
                                 <Meal
@@ -184,7 +183,6 @@ export default function Home() {
                                     value={Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}
                                 />
                             </Grid>
-
                         ))
                         }
                     </Grid>
@@ -198,7 +196,6 @@ export default function Home() {
                                     name={meal.name}
                                     description={meal.description}
                                     value={Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}
-
                                 />                       
                             </Grid>
                         ))

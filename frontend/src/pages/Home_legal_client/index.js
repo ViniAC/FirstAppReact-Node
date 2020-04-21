@@ -4,6 +4,8 @@ import { FiPower, FiTrash2, FiEdit2, FiUser } from 'react-icons/fi';
 import './styles.css';
 import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
+import Header from '../../Header';
+import { Container } from '@material-ui/core';
 
 export default function Home() {
 
@@ -57,25 +59,15 @@ export default function Home() {
     }
 
     return (
-        <div className="home-container">
+        <>
+        <Header route="profile-legal-client" name={legal_client_name}/>
+        <Container>
+            
             <header>
-
-                <div>
-                    <img src={logoImg} alt="Be The Hero" />
-
-                    <span>Bem vindo(a), {legal_client_name}. </span>
-                </div>
 
                 <div>
                     <Link className="button" to="/meals/new">Cadastrar novo Prato</Link>
 
-                    <button onClick={handleMyProfile} type="button">
-                        <FiUser size={18} color="#E02041" />
-                    </button>
-
-                    <button onClick={handleLogout} type="button">
-                        <FiPower size={18} color="#E02041" />
-                    </button>
                 </div>
 
             </header>
@@ -102,7 +94,8 @@ export default function Home() {
                     </li>
                 ))}
             </ul>
-        </div>
+        </Container>
+        </>
 
     );
 }
