@@ -82,7 +82,7 @@ export default function ConfirmationOrder() {
       <h2> {pk_id_order} </h2>
       <ul >
         {orders.map(order => (
-          <li key={order.pk_id_order}>
+          <li >
             <strong>PRATO:</strong>
             <p>{order.description}</p>
 

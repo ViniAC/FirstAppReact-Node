@@ -5,7 +5,8 @@ import logoImg from '../../assets/logo.svg';
 import { FaRegEdit } from 'react-icons/fa'
 import './styles.css';
 import { FiArrowLeft, FiTrash2 } from 'react-icons/fi';
-import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button';
+import Header from '../Components/Header';
 
 export default function Profile() {
 

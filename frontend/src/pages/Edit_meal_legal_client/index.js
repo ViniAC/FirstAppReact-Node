@@ -4,8 +4,8 @@ import { FiPower, FiArrowLeft } from 'react-icons/fi';
 import './styles.css';
 import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
-import Button from '@material-ui/core/Button'
-import Header from '../../Header';
+import {Button, Container} from '@material-ui/core/'
+import Header from '../Components/Header';
 
 export default function Home() {
 
@@ -63,11 +63,7 @@ export default function Home() {
         }
     }
 
-    function handleLogout() {
-
-        localStorage.clear();
-        history.push('/');
-    }
+  
 
     async function handleBackHome() {
 
@@ -77,22 +73,15 @@ export default function Home() {
 
     return (
         <>
-        <Header name={legal_client_name}/>
-        <div className="home-container">
+        <Header profileType="profile-legal-client" name={legal_client_name}/>
+        <Container>
             <header>
-                <img src={logoImg} alt="Be The Hero" />
+                
 
-                <span>Bem vindo(a), {legal_client_name}. </span>
+                <Link onClick={handleBackHome}><FiArrowLeft size={18} color="#E02041" /></Link>
 
-                <Link className="button" to="/meal/new">Cadastrar novo Prato</Link>
 
-                <button onClick={handleLogout} type="button">
-                    <FiPower size={18} color="#E02041" />
-                </button>
-
-                <button onClick={handleBackHome} type="button" id="btn_my_profile">
-                    <FiArrowLeft size={18} color="#E02041" />
-                </button>
+                
             </header>
             <h1>Pratos Cadastrados</h1>
             <ul>
@@ -129,7 +118,7 @@ export default function Home() {
                     <Button style={saveButton} onClick={handleSaveButton} id='save'>Salvar</Button>
                 </form>
             </ul>
-        </div>
+        </Container>
         </>
     );
 }

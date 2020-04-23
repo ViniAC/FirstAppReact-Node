@@ -5,7 +5,7 @@ import heroImg from '../../assets/heroes.png'
 import logoImg from '../../assets/logo.svg'
 import { FiLogIn, FiBriefcase } from 'react-icons/fi';
 import api from '../../services/api';
-import Button from '@material-ui/core/Button';
+import {Button, Container} from '@material-ui/core';
 import { ButtonStyle } from '../../assets/ButtonStyle'
 
 export default function Logon() {
@@ -42,7 +42,7 @@ async function handleLogin(e) {
 }
 
 return (
-    <div className="logon-container">
+    <Container>
         <section className="form">
             <img src={logoImg} alt="logo" />
 
@@ -73,6 +73,6 @@ return (
         </section>
 
         <img src={heroImg} alt="Heroes" />
-    </div>
+    </Container>
 );
 }

@@ -4,7 +4,8 @@ import { useHistory } from 'react-router-dom';
 import './styles.css';
 import { FiArrowLeft, FiTrash2 } from 'react-icons/fi';
 import { FaRegEdit } from 'react-icons/fa'
-import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button';
+import Header from '../Components/Header';
 
 export default function Profile() {
 
@@ -75,6 +76,8 @@ export default function Profile() {
 
 
     return (
+        <>
+        <Header profileType="profile-legal-client" name={legal_client.name} />
         <div className="home-container">
             <header>
 
@@ -151,6 +154,7 @@ export default function Profile() {
                 </form>
             </ul>
         </div>
+        </>
 
     );
 

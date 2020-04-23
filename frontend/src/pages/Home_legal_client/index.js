@@ -4,8 +4,9 @@ import { FiPower, FiTrash2, FiEdit2, FiUser } from 'react-icons/fi';
 import './styles.css';
 import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
-import Header from '../../Header';
-import { Container } from '@material-ui/core';
+import Header from '../Components/Header';
+import Meal from '../Components/Meal';
+import { Container, Grid, Button} from '@material-ui/core';
 
 export default function Home() {
 
@@ -60,41 +61,47 @@ export default function Home() {
 
     return (
         <>
-        <Header route="profile-legal-client" name={legal_client_name}/>
-        <Container>
-            
-            <header>
+            <Header profileType="profile-legal-client" name={legal_client_name} />
+            <Container>
 
-                <div>
-                    <Link className="button" to="/meals/new">Cadastrar novo Prato</Link>
+                <header>
 
-                </div>
+                    <div>
+                        <Link className="button" to="/meals/new">Cadastrar novo Prato</Link>
 
-            </header>
-            <h1>Pratos Cadastrados</h1>
-            <ul>
-                {meals.map(meal => (
-                    <li key={meal.pk_id_meal}>
-                        <strong>PRATO:</strong>
+                    </div>
 
-                        <p>{meal.name}</p>
+                </header>
+                <h1>Pratos Cadastrados</h1>
 
-                        <strong>Descrição:</strong>
-                        <p>{meal.description}</p>
 
-                        <strong>VALOR:</strong>
-                        <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}</p>
+                <Grid xs={12} container item direction="row" spacing={2}>
+                    {meals.map(meal => (
+                        <Grid key={meal.name}
+                            item xs={12} sm={6} md={4} >
 
-                        <button id="btn_delete" onClick={() => handleDeleteMeal(meal.pk_id_meal)} type="button">
-                            <FiTrash2 size={20} color="#a8a8b3" />
-                        </button>
-                        <button id="btn_edit" onClick={() => handleEditMeal(meal.pk_id_meal)} type="button">
-                            <FiEdit2 size={20} color="#a8a8b3" />
-                        </button>
-                    </li>
-                ))}
-            </ul>
-        </Container>
+                            <Meal
+                                name={meal.name}
+                                description={meal.description}
+                                quantity={meal.qt}
+                                value={Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}
+                            />
+                             <Button onClick={() => handleDeleteMeal(meal.pk_id_meal)} type="button">
+                                <FiTrash2 size={20} color="#a8a8b3" />
+                            </Button>
+                            <Button onClick={() => handleEditMeal(meal.pk_id_meal)} type="button">
+                                <FiEdit2 size={20} color="#a8a8b3" />
+                            </Button>
+
+                        </Grid>
+
+                    ))}
+                </Grid>
+
+               
+
+
+            </Container>
         </>
 
     );

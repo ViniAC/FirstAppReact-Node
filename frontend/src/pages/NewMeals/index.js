@@ -5,7 +5,8 @@ import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import api from '../../services/api'
 import Button from '@material-ui/core/Button';
-import { ButtonStyle } from '../../assets/ButtonStyle'
+import { ButtonStyle } from '../../assets/ButtonStyle';
+import Header from '../Components/Header';
 
 export default function NewMeal() {
 
@@ -44,7 +45,7 @@ export default function NewMeal() {
         <div className="new-meal-container">
             <div className="content">
                 <section>
-                    <img src={logoImg} alt="Be The Hero" />
+                    
 
 
                     <h1>Cadastro de novos pratos</h1>

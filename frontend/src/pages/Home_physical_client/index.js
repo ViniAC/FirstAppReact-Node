@@ -5,10 +5,10 @@ import './styles.css';
 import { useHistory } from 'react-router-dom';
 import CardActions from '@material-ui/core/CardActions';
 import api from '../../services/api';
-import { Container, Grid, Button } from '@material-ui/core';
+import { Container, Grid, Button, Typography, InputBase } from '@material-ui/core';
 import { ButtonStyle } from '../../assets/ButtonStyle'
-import Header from '../../Header';
-import Meal from './Meal';
+import Header from '../Components/Header';
+import Meal from '../Components/Meal';
 
 export default function Home() {
 
@@ -22,25 +22,6 @@ export default function Home() {
     const [searchList, setSearchList] = useState([]);
     const [btnMyOrder, setBtnOrder] = useState(false);
 
-    const finishButton = {
-        size: 'small',
-        textTransform: 'none',
-        height: 60,
-        width: 200,
-        background: '#e02041',
-        border: 0,
-        borderRadius: 8,
-        color: '#FFF',
-        fontWeight: 700,
-        marginTop: 24,
-        // display: 'inline-block',
-        textAlign: 'center',
-        textDecoration: 'none',
-        fontSize: '18px',
-        lineHeight: '60px',
-        transition: '0.3s',
-        marginLeft: '82%'
-    }
 
     const onNewSearchChange = useCallback((event) => {
         setSearchList([]);
@@ -113,19 +94,16 @@ export default function Home() {
 
 
 
-    function handleRemoveMeal(mealId) {
+    function handleRemoveMeal() {
         let copyOfList = meals.slice()
         for (let index = 0; index < copyOfList.length; index++) {
-            if (mealId === copyOfList[index].pk_id_meal) {
-                if (copyOfList[index].qt <= 1) {
-                    copyOfList[index].qt = 0;
-                    setMeals(copyOfList);
-                    return
-                }
-                copyOfList[index].qt--
-            }
+            
+                
+            copyOfList[index].qt = 0;
+            setMeals(copyOfList);
         }
-        setMeals(copyOfList);
+                    
+              
     }
 
     function handleViewMyOrders() {
@@ -152,57 +130,64 @@ export default function Home() {
     return (
         <>
             <Header profileType="profile-physical-client" name={physical_client_name} />
-            <Container>
-
-                <header>
-                    <div>
-
-                        {btnMyOrder !== false && (
-                            <button onClick={() => handleViewMyOrders()} type="button">Visualizar meu pedido</button>
-                        )}
-                    </div>
-
-                </header>
-                <form>
-                    <input
+            <Container >
+                <Grid color='primary'>
+                    <InputBase
+                        color='secondary'
+                        fullWidth='true'
                         placeholder="Nome do prato"
                         value={newSearch}
                         onChange={onNewSearchChange}
                     />
-                </form>
-                <h1>Pratos:</h1>
+                </Grid>
+                <Typography>Pratos:</Typography>
 
                 {newSearch == '' && (
-                    <Grid xs={12} container direction="row" spacing="2">
+                    <Grid xs={12} container item direction="row" spacing={2}>
                         {meals.map(meal => (
-                            <Grid onClick={() => handleAddMeal(meal.pk_id_meal)} item xs={4} >
+                            <Grid key={meal.name} onClick={() => handleAddMeal(meal.pk_id_meal)} 
+                            item xs={12} sm={6} md={4} >
 
                                 <Meal
                                     name={meal.name}
                                     description={meal.description}
+                                    quantity={meal.qt}
                                     value={Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}
+                                    
                                 />
+                                 
                             </Grid>
                         ))
                         }
+                        
                     </Grid>
                 )}
                 {newSearch != '' && (
-                    <Grid xs={12} container direction="row" spacing="1">
+                    <Grid xs={12} container item direction="row" spacing={2}>
                         {searchList.map(meal => (
-                            <Grid onClick={() => handleAddMeal(meal.pk_id_meal)} item xs={4}>
+                            <Grid item key={meal.name} onClick={() => handleAddMeal(meal.pk_id_meal)} xs={12} sm={6} md={4} >
 
                                 <Meal
                                     name={meal.name}
                                     description={meal.description}
                                     value={Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}
-                                />                       
+
+                                />    
+                                                 
                             </Grid>
                         ))
                         }
+                        
                     </Grid>
                 )}
-                <Button id='finish-order' style={ButtonStyle} onClick={() => handleMakeOrder()}>Finalizar pedido</Button>
+                <Grid container item justify="flex-end" spacing={2} xs={12}>
+                    {btnMyOrder !== false && (
+                        <Button variant="contained" onClick={() => handleViewMyOrders()} type="button">Visualizar meu pedido</Button>
+                    )}
+                    <Button variant="contained" color='secondary' onClick={() => handleRemoveMeal()}>Limpar Carrinho</Button>
+                    <Button variant="contained" color='green'  onClick={() => handleMakeOrder()}>Finalizar pedido</Button>
+                    
+                </Grid>
             </Container>
         </>
 
