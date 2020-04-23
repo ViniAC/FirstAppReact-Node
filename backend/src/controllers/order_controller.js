@@ -20,6 +20,7 @@ module.exports = {
         for (let i = 0; i < order.length; i++) {
             await connection('tb_order').insert({
                 pk_id_order,
+                name: order[i].name,
                 description: order[i].description,
                 unit_price: order[i].value,
                 item_price: item_prices[i].item_price,

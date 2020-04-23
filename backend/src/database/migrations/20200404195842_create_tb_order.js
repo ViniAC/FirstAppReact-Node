@@ -2,6 +2,7 @@
 exports.up = function (knex) {
     return knex.schema.createTable('tb_order', function (table) {
         table.string('pk_id_order').notNullable();
+        table.string('name').notNullable();
         table.string('description').notNullable();
         table.float('unit_price').notNullable();
         table.integer('quantity').notNullable();
