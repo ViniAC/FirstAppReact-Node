@@ -1,35 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
-import { useHistory } from 'react-router-dom';
-import './styles.css';
-import { FiArrowLeft, FiTrash2 } from 'react-icons/fi';
-import { FaRegEdit } from 'react-icons/fa'
-import Button from '@material-ui/core/Button';
+import { Link, useHistory } from 'react-router-dom';
 import Header from '../Components/Header';
-import CompanieForm from '../Components/CompanieForm';
+import { Container, Grid, Button, TextField, FormGroup, ButtonGroup } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
+import BackIcon from '@material-ui/icons/ArrowLeft';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles((theme) => ({
+    buttonGroup: {
+        display: "flex",
+        justifyContent: "space-between",
+    }
+}))
 export default function Profile() {
 
+    const classes = useStyles();
     const history = useHistory();
 
     const [legal_client, setClient] = useState([]);
 
-    const [edit, setEdit] = useState(true);
+    const [edit, setEdit] = React.useState({
+        edit: true
+    });
 
+    const handleClickChangeEdit = () => {
+        setEdit({ ...edit, edit: !edit.edit });
+    };
     const legal_client_id = localStorage.getItem('legal_client_id');
 
-    const saveButton = {
-        height: '60px',
-        width: '100px',
-        textTransform: 'none',
-        background: '#e02041',
-        color: '#fff',
-        fontSize: '18px',
-        lineHeight: '50px',
-        transition: '0.3s',
-        // marginLeft: '82%',
-        // marginTop: '100%'
-    }
 
 
     function handleBackHome() {
@@ -78,7 +78,90 @@ export default function Profile() {
 
 
     return (
-        <CompanieForm legal_client={legal_client} />
+        <>
+            <Header profileType="profile-legal-client" name={legal_client.name} />
+            <Container >
+                <Grid container item direction="row">
+                    
+                    <Grid container item direction="column" alignItems="center">
+                        <Grid justifyContent="space-between">
+                        <Link>
+                            <IconButton
+                                onClick={handleClickChangeEdit}>
+                                <EditIcon />
+                            </IconButton>
+                        </Link>
+                        <Link to="/home-legal-client">
+                            <IconButton>
+                                <BackIcon>
+                                </BackIcon>
+                            </IconButton>
+                        </Link>
+                        </Grid>
+                        <TextField
+                            margin="normal"
+                            disabled={edit.edit}
+                            variant="outlined"
+                            value={legal_client.name}
+                            onChange={(event) => {
+                                const newObject = Object.assign({}, legal_client);
+                                setClient(Object.assign(newObject, { name: event.target.value }));
+                            }}
+                        />
+
+                        <TextField
+                            margin="normal"
+                            disabled={edit.edit}
+                            variant="outlined"
+                            value={legal_client.cnpj}
+                            onChange={(event) => {
+                                const newObject = Object.assign({}, legal_client);
+                                setClient(Object.assign(newObject, { cnpj: event.target.value }));
+                            }}
+                        />
+                        <TextField
+                            margin="normal"
+                            disabled={edit.edit}
+                            variant="outlined"
+                            value={legal_client.email}
+                            onChange={(event) => {
+                                const newObject = Object.assign({}, legal_client);
+                                setClient(Object.assign(newObject, { email: event.target.value }));
+                            }}
+                        />
+                        <TextField
+                            margin="normal"
+                            disabled={edit.edit}
+                            variant="outlined"
+                            value={legal_client.city}
+                            onChange={(event) => {
+                                const newObject = Object.assign({}, legal_client);
+                                setClient(Object.assign(newObject, { city: event.target.value }));
+                            }}
+                        />
+
+                        <TextField
+                            margin="normal"
+                            disabled={edit.edit}
+                            variant="outlined"
+                            value={legal_client.uf}
+                            onChange={(event) => {
+                                const newObject = Object.assign({}, legal_client);
+                                setClient(Object.assign(newObject, { uf: event.target.value }));
+                            }}
+                        />
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleSaveButton}>
+                            Salvar
+                        </Button>
+                        
+                    </Grid>
+                        
+                </Grid>
+            </Container>
+        </>
     );
 
 }

@@ -152,8 +152,6 @@ export default function Logon() {
                         onClick={handleLogin} 
                         className={clsx(classes.margin, classes.textField, classes.buttonColor)} 
                         variant="contained" 
-                        
-                         
                         >
                             <Typography>Entrar</Typography>
                         </Button>

@@ -1,15 +1,34 @@
-import React, { useState } from 'react';
-import './styles.css'
-import logoImg from '../../assets/logo.svg';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import api from '../../services/api'
 import Button from '@material-ui/core/Button';
-import { ButtonStyle } from '../../assets/ButtonStyle';
-import Header from '../Components/Header';
+import { Grid, InputLabel, Input, TextField, Container, Typography, TextareaAutosize } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles((theme) => ({
+    container: {
+        width: '100%',
+        maxWidth: '1120px',
+        height: '100vh',
+        margin: '0 auto',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    containerContent: {
+        width: '100%',
+        padding: '96px',
+        background: '#f0f0f5',
+        boxShadow: '0 0 100px rgba(0, 0, 0, 0.1)',
+        borderRadius: '8px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    }
+}))
 export default function NewMeal() {
-
+    const classes = useStyles();
     const history = useHistory();
 
     const [name, setName] = useState('');
@@ -40,44 +59,61 @@ export default function NewMeal() {
         }
 
     }
-
+    useEffect(() => {
+        console.log('NOME:      ', name)
+        console.log('DESCRIÇÃO: ', description)
+        console.log('VALOR:     ', value);
+    }, [name, description, value])
     return (
-        <div className="new-meal-container">
-            <div className="content">
-                <section>
-                    
+        <>
+            <Container className={classes.container}>
+                <Grid container item direction="column" justify="center" alignItems="center">
+                    <Grid className={classes.containerContent} container direction="column">
+                        <Typography variant="h2" >
+                            Cadastro de novos pratos
+                        </Typography>
+                        <Typography variant="h4">
+                            Cadastre pratos deliciosos!
+                    </Typography>
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            label="Nome do prato"
+                            placeholder="Nome do prato"
+                            value={name}
+                            onChange={event => setName(event.target.value)}
 
-
-                    <h1>Cadastro de novos pratos</h1>
-                    <p>Cadastre pratos deliciosos!</p>
-
+                        />
+                        <TextField
+                            size="normal"
+                            multiline={true}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            label="Descrição"
+                            placeholder="Descrição do prato"
+                            value={description}
+                            onChange={event => setDesc(event.target.value)}
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            label="Valor"
+                            placeholder="Valor do prato"
+                            value={value}
+                            onChange={event => setValue(event.target.value)}
+                        />
+                    </Grid>
+                    <Button variant="contained" color="primary" onClick={handleNewMeal}>Cadastrar</Button>
                     <Link className="back-link" to="/home-legal-client">
                         <FiArrowLeft size={16} color="#E02041" />
                     Voltar para Home
-                </Link>
-                </section>
+                    </Link>
+                </Grid>
 
-                <form onSubmit={handleNewMeal}>
-                    <input
-                        placeholder="Nome"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                    />
-                    <textarea
-                        placeholder="Descrição"
-                        value={description}
-                        onChange={e => setDesc(e.target.value)}
-                    />
-                    <input
-                        placeholder="Valor em reais"
-                        value={value}
-                        onChange={e => setValue(e.target.value)}
-                    />
-
-                    <Button className="button" style={ButtonStyle} type="submit">Cadastrar</Button>
-
-                </form>
-            </div>
-        </div>
+            </Container>
+        </>
     );
 }
