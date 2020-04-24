@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
-import { useHistory } from 'react-router-dom';
-import logoImg from '../../assets/logo.svg';
-import { FaRegEdit } from 'react-icons/fa'
-import { FiArrowLeft, FiTrash2 } from 'react-icons/fi';
+import { Link, useHistory } from 'react-router-dom';
 import Header from '../Components/Header';
-import { TextField, Button } from '@material-ui/core';
-import UserForm from '../Components/UserForm';
-
+import { TextField, Button, Container, Grid, Typography } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
+import BackIcon from '@material-ui/icons/ArrowLeft';
 export default function Profile() {
 
 
     const history = useHistory();
 
-    const [physical_client, setClient] = useState([]);
+    const [physical_client, setClient] = React.useState({});
 
-    const [edit, setEdit] = useState(true);
+    const [edit, setEdit] = React.useState({
+        edit: false
+    });
+
+    const handleClickChangeEdit = () => {
+        setEdit({ ...edit, edit: !edit.edit });
+    };
 
     const physical_client_id = localStorage.getItem('physical_client_id');
     const physical_client_password = localStorage.getItem('physical_client_password');
@@ -40,11 +44,8 @@ export default function Profile() {
     useEffect(() => {
         try {
 
-            setEdit(false);
             let res = physical_client.date_birth.substr(0, 10);
             setClient(Object.assign(physical_client, { date_birth: res }));
-            setEdit(true);
-
         } catch (err) { }
     }, [physical_client]);
 
@@ -57,6 +58,7 @@ export default function Profile() {
             }
         }).then(response => {
             setClient(response.data[0]);
+            handleClickChangeEdit();
         })
     }, [physical_client_id]);
 
@@ -89,9 +91,80 @@ export default function Profile() {
             history.push('/profile-physical-client')
         }
     }
-
+    useEffect(() => {
+        console.log(physical_client);
+    }, [physical_client])
     return (
-        <UserForm physical_client={physical_client}/>
+        <>
+            <Header profileType="profile-physical-client" name={physical_client.name} />
+            <Container>
+                <Grid container item direction="row">
+                <Grid container item direction="column" alignItems="center">
+                <Grid justifyContent="space-between">
+                        <Link>
+                            <IconButton
+                                onClick={handleClickChangeEdit}>
+                                <EditIcon />
+                            </IconButton>
+                        </Link>
+                        <Link to="/home-physical-client">
+                            <IconButton>
+                                <BackIcon>
+                                </BackIcon>
+                            </IconButton>
+                        </Link>
+                        </Grid>
+                        <TextField
+                            margin="normal"
+                            disabled={edit.edit}
+                            variant="outlined"
+                            value={physical_client.name}
+                            onChange={(event) => {
+                                const newObject = Object.assign({}, physical_client);
+                                setClient(Object.assign(newObject, { name: event.target.value }));
+                            }}
+                        />
+                    <TextField
+                        margin="normal"
+                        disabled={edit.edit}
+                        variant="outlined"
+                        value={physical_client.cpf}
+                        onChange={(event) => {
+                            const newObject = Object.assign({}, physical_client);
+                            setClient(Object.assign(newObject, { cpf: event.target.value }))
+                        }}
+                    />
+                    <TextField
+                        margin="normal"
+                        disabled={edit.edit}
+                        variant="outlined"
+                        value={physical_client.email}
+                        onChange={(event) => {
+                            const newObject = Object.assign({}, physical_client);
+                            setClient(Object.assign(newObject, { email: event.target.value }))
+                        }}
+                    />
+                    <TextField
+                        margin="normal"
+                        disabled={edit.edit}
+                        variant="outlined"
+                        value={physical_client.date_birth}
+                        onChange={(event) => {
+                            const newObject = Object.assign({}, physical_client);
+                            setClient(Object.assign(newObject, { date_birth: event.target.value }))
+                        }}
+                    />
+
+                    <Button
+                    variant="contained"
+                    color="primary"
+                        onClick={handleSaveButton}>
+                        Salvar
+                    </Button>
+                    </Grid>
+                </Grid>
+            </Container>
+        </>
     );
 
 }

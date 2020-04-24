@@ -156,7 +156,7 @@ export default function Logon() {
                         >
                             <Typography>Entrar</Typography>
                         </Button>
-                        <Link className={clsx(classes.buttonLink, classes.textColor)} to="/register-physical-client">
+                        <Link className={clsx(classes.buttonLink, classes.textColor)} to="/register-legal-client">
                             <FiLogIn size={16} color="#ffab00" />
                             <Typography className={classes.typography}>Não tenho cadastro</Typography>
                         </Link>

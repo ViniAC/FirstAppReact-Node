@@ -107,7 +107,9 @@ export default function Home() {
     function handleViewMyOrders() {
         history.push('/order');
     }
-
+    useEffect(() => {
+        console.log(cart);
+    },[cart]);
     function handleRemoveMeal(mealId) {
         let copyOfList = meals.slice()
         let copyOfCart = cart.slice();
@@ -199,9 +201,9 @@ export default function Home() {
                                 />
                             
                             </Grid>
-                            {/* <button onClick={() => handleRemoveMeal(meal.pk_id_meal)} type="button">
+                            <button onClick={() => handleRemoveMeal(meal.pk_id_meal)} type="button">
                             <IoIosRemove size={20} color="gray" />
-                            </button> */}
+                            </button>
                             </>
                         ))
                         }
