@@ -82,21 +82,21 @@ export default function Profile() {
             <Header profileType="profile-legal-client" name={legal_client.name} />
             <Container >
                 <Grid container item direction="row">
-                    
+
                     <Grid container item direction="column" alignItems="center">
                         <Grid justifyContent="space-between">
-                        <Link>
-                            <IconButton
-                                onClick={handleClickChangeEdit}>
-                                <EditIcon />
-                            </IconButton>
-                        </Link>
-                        <Link to="/home-legal-client">
-                            <IconButton>
-                                <BackIcon>
-                                </BackIcon>
-                            </IconButton>
-                        </Link>
+                            <Link>
+                                <IconButton
+                                    onClick={handleClickChangeEdit}>
+                                    <EditIcon />
+                                </IconButton>
+                            </Link>
+                            <Link to="/home-legal-client">
+                                <IconButton>
+                                    <BackIcon>
+                                    </BackIcon>
+                                </IconButton>
+                            </Link>
                         </Grid>
                         <TextField
                             margin="normal"
@@ -156,9 +156,16 @@ export default function Profile() {
                             onClick={handleSaveButton}>
                             Salvar
                         </Button>
-                        
+
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={handleDeleteAccount}>
+                            Deletar
+                        </Button>
+
                     </Grid>
-                        
+
                 </Grid>
             </Container>
         </>

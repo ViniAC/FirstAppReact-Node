@@ -96,20 +96,20 @@ export default function Profile() {
             <Header profileType="profile-physical-client" name={physical_client.name} />
             <Container>
                 <Grid container item direction="row">
-                <Grid container item direction="column" alignItems="center">
-                <Grid justifyContent="space-between">
-                        <Link>
-                            <IconButton
-                                onClick={handleClickChangeEdit}>
-                                <EditIcon />
-                            </IconButton>
-                        </Link>
-                        <Link to="/home-physical-client">
-                            <IconButton>
-                                <BackIcon>
-                                </BackIcon>
-                            </IconButton>
-                        </Link>
+                    <Grid container item direction="column" alignItems="center">
+                        <Grid justifyContent="space-between">
+                            <Link>
+                                <IconButton
+                                    onClick={handleClickChangeEdit}>
+                                    <EditIcon />
+                                </IconButton>
+                            </Link>
+                            <Link to="/home-physical-client">
+                                <IconButton>
+                                    <BackIcon>
+                                    </BackIcon>
+                                </IconButton>
+                            </Link>
                         </Grid>
                         <TextField
                             margin="normal"
@@ -121,43 +121,50 @@ export default function Profile() {
                                 setClient(Object.assign(newObject, { name: event.target.value }));
                             }}
                         />
-                    <TextField
-                        margin="normal"
-                        disabled={edit.edit}
-                        variant="outlined"
-                        value={physical_client.cpf}
-                        onChange={(event) => {
-                            const newObject = Object.assign({}, physical_client);
-                            setClient(Object.assign(newObject, { cpf: event.target.value }))
-                        }}
-                    />
-                    <TextField
-                        margin="normal"
-                        disabled={edit.edit}
-                        variant="outlined"
-                        value={physical_client.email}
-                        onChange={(event) => {
-                            const newObject = Object.assign({}, physical_client);
-                            setClient(Object.assign(newObject, { email: event.target.value }))
-                        }}
-                    />
-                    <TextField
-                        margin="normal"
-                        disabled={edit.edit}
-                        variant="outlined"
-                        value={physical_client.date_birth}
-                        onChange={(event) => {
-                            const newObject = Object.assign({}, physical_client);
-                            setClient(Object.assign(newObject, { date_birth: event.target.value }))
-                        }}
-                    />
+                        <TextField
+                            margin="normal"
+                            disabled={edit.edit}
+                            variant="outlined"
+                            value={physical_client.cpf}
+                            onChange={(event) => {
+                                const newObject = Object.assign({}, physical_client);
+                                setClient(Object.assign(newObject, { cpf: event.target.value }))
+                            }}
+                        />
+                        <TextField
+                            margin="normal"
+                            disabled={edit.edit}
+                            variant="outlined"
+                            value={physical_client.email}
+                            onChange={(event) => {
+                                const newObject = Object.assign({}, physical_client);
+                                setClient(Object.assign(newObject, { email: event.target.value }))
+                            }}
+                        />
+                        <TextField
+                            margin="normal"
+                            disabled={edit.edit}
+                            variant="outlined"
+                            value={physical_client.date_birth}
+                            onChange={(event) => {
+                                const newObject = Object.assign({}, physical_client);
+                                setClient(Object.assign(newObject, { date_birth: event.target.value }))
+                            }}
+                        />
 
-                    <Button
-                    variant="contained"
-                    color="primary"
-                        onClick={handleSaveButton}>
-                        Salvar
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleSaveButton}>
+                            Salvar
                     </Button>
+
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={handleDeleteAccount}>
+                            Deletar
+                        </Button>
                     </Grid>
                 </Grid>
             </Container>
