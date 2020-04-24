@@ -40,17 +40,20 @@ const useStyles = makeStyles((theme) => ({
     },
     container: {
         backgroundImage: `url(${Image})`,
+        
 
     },
     menu: {
         backgroundImage: `url(${Image2})`,
-        backgroundPosition: 'center'
+        backgroundPosition: 'center',
+        
     },
     textColor: {
         color: "white"
     },
     buttonColor: {
-        color: "#ffab00",
+        color: "white",
+        backgroundColor: "#ffab00",
     },
     typography: {
         marginLeft: 10,

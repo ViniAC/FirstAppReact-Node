@@ -50,7 +50,8 @@ const useStyles = makeStyles((theme) => ({
         color: "white"
     },
     buttonColor: {
-        color: "#ffab00",
+        color: "white",
+        backgroundColor: "#ffab00",
     },
     typography: {
         marginLeft: 10,
