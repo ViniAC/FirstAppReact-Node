@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import './styles.css'
-import logoImg from '../../assets/logo.svg';
 import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import api from '../../services/api';
@@ -52,7 +50,6 @@ export default function Register() {
             <Typography align="center" color="primary">Cadastro Cliente Jurídico</Typography>
             <Typography align="center">Faça seu cadastro, entre na plataforma e facilite a vida dos seus clientes!</Typography>
 
-            <form onSubmit={handleRegister}>
                 <Grid container item direction="column" justify="center" alignItems="center">
 
                     <TextField
@@ -111,7 +108,7 @@ export default function Register() {
                         onChange={event => setWhatsapp(event.target.value)}
                     />
 
-                    <div className="input-group">
+                    <Grid >
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -134,17 +131,16 @@ export default function Register() {
                             onChange={event => setUf(event.target.value)}
 
                         />
-                    </div>
+                    </Grid>
 
 
 
-                    <Button variant="contained" color="primary" size="large" className="button" type="submit">Cadastrar</Button>
+                    <Button onClick={event => handleRegister(event)} variant="contained" color="primary" size="large" >Cadastrar</Button>
                     <Link className="back-link" to="/logon-legal-client">
                         <FiArrowLeft size={16} color="#E02041" />
                         Voltar para tela de Logon
                     </Link>
                 </Grid>
-            </form>
         </Container>
     );
 }

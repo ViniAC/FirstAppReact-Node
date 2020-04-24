@@ -43,11 +43,21 @@ export default function ConfirmationOrder() {
   const history = useHistory();
 
   async function handleSaveButton() {
-    const data = orders;
+    let orderList = orders;
+
     try {
-      await api.put('order', data);
-      alert('pedido alterado com sucesso');
+      await api.put('order', orderList);
+      let totalPrice = 0;
+      for (let i = 0; i < orderList.length; i++) {
+        orderList[i].item_price = orderList[i].unit_price * orderList[i].quantity;
+        totalPrice += orderList[i].item_price;
+      }
+      for (let index = 0; index < orderList.length; index++) {
+        orderList[index].total_price = totalPrice;
+      }
+      setOrders(orderList);
       history.push('/order');
+      alert('pedido alterado com sucesso');
     } catch (err) {
       console.log(err);
     }

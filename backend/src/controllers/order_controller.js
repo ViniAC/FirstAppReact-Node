@@ -88,6 +88,7 @@ module.exports = {
             .where('fk_id_meal', orderList[index].fk_id_meal)
             .update({ quantity: orderList[index].quantity, item_price: orderList[index].item_price, total_price: totalPrice });
         }
+        return response.status(200).send();
     }
 }
 

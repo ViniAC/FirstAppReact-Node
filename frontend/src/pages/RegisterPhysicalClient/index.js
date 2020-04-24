@@ -51,8 +51,6 @@ export default function Register() {
         <Container>
             <Typography align="center" color="primary">Cadastro Cliente Físico</Typography>
             <Typography align="center">Faça seu cadastro, entre na plataforma e facilite sua vida!</Typography>
-
-            <form onSubmit={handleRegister}>
                 <Grid container item direction="column" justify="center" alignItems="center">
 
                     <TextField
@@ -109,13 +107,12 @@ export default function Register() {
                         onChange={event => setDt_birth(event.target.value)}
                     />
 
-                    <Button variant="contained" color="primary" size="large" className="button" type="submit">Cadastrar</Button>
+                    <Button onClick={event => handleRegister(event)}variant="contained" color="primary" size="large" >Cadastrar</Button>
                     <Link className="back-link" to="/">
                         <FiArrowLeft size={16} color="#E02041" />
                         Voltar para tela de Logon
                     </Link>
                 </Grid>
-            </form>
         </Container>
     );
 }
