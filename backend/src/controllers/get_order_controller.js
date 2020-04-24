@@ -13,7 +13,7 @@ module.exports = {
 
         .select([
           'tb_meal.pk_id_meal',
-          'tb_meal.name as meal_name',
+          'tb_meal.name',
           'tb_meal.description',
           'tb_meal.value',
           'tb_meal.fk_id_legal_client'
