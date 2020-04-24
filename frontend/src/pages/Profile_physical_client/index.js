@@ -3,10 +3,10 @@ import api from '../../services/api';
 import { useHistory } from 'react-router-dom';
 import logoImg from '../../assets/logo.svg';
 import { FaRegEdit } from 'react-icons/fa'
-import './styles.css';
 import { FiArrowLeft, FiTrash2 } from 'react-icons/fi';
-import Button from '@material-ui/core/Button';
 import Header from '../Components/Header';
+import { TextField, Button } from '@material-ui/core';
+import UserForm from '../Components/UserForm';
 
 export default function Profile() {
 
@@ -29,8 +29,9 @@ export default function Profile() {
         fontSize: '18px',
         lineHeight: '50px',
         transition: '0.3s',
-        marginLeft: '82%',
-        marginTop: '70%'
+        marginTop: '70%',
+        display: 'flex',
+        justifyContent: 'center'
     }
     function handleBackHome() {
         history.push('home-physical-client')
@@ -90,71 +91,7 @@ export default function Profile() {
     }
 
     return (
-        <div className="home-container">
-            <header>
-                <div>
-                    <img src={logoImg} alt="Be The Hero" />
-                    <span>Olá, {physical_client.name}. </span>
-                </div>
-                <div>
-                    <button onClick={handleBackHome} type="button">
-                        <FiArrowLeft size={18} color="#E02041" />
-                    </button>
-                </div>
-
-            </header>
-            <h1>Seus dados: </h1>
-            <ul>
-                <form>
-                    <li>
-                        <strong>Nome:</strong>
-                        <input
-                            disabled={edit}
-                            defaultValue={physical_client.name}
-                            onChange={(event) => {
-                                setClient(Object.assign(physical_client, { name: event.target.value }))
-                            }}
-                        />
-
-                        <strong>CPF:</strong>
-
-                        <input
-                            disabled={edit}
-                            defaultValue={physical_client.cpf}
-                            onChange={(event) => {
-                                setClient(Object.assign(physical_client, { cpf: event.target.value }))
-                            }}
-                        />
-
-                        <strong>E-Mail:</strong>
-                        <input
-                            disabled={edit}
-                            defaultValue={physical_client.email}
-                            onChange={(event) => {
-                                setClient(Object.assign(physical_client, { newEmail: event.target.value }))
-                            }}
-                        />
-
-                        <strong>Data de Nascimento:</strong>
-                        <p>{physical_client.date_birth}</p>
-                        <button
-                            id='delete'
-                            type="button"
-                            onClick={handleDeleteAccount}>
-                            <FiTrash2 size={20} color="gray" />
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => setEdit(!edit)}>
-                            <FaRegEdit size={20} color="gray" />
-                        </button>
-                        {/* <Button style={saveButton} onClick={handleSaveButton} id='save'>Salvar</Button> */}
-                    </li>
-                    <Button style={saveButton} onClick={handleSaveButton} id='save'>Salvar</Button>
-                </form>
-            </ul>
-        </div>
-
+        <UserForm physical_client={physical_client}/>
     );
 
 }
