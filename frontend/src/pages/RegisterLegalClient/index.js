@@ -4,8 +4,9 @@ import logoImg from '../../assets/logo.svg';
 import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import api from '../../services/api';
-import Button from '@material-ui/core/Button';
-import { ButtonStyle } from '../../assets/ButtonStyle'
+// import Button from '@material-ui/core/Button';
+// import { ButtonStyle } from '../../assets/ButtonStyle'
+import { Container, Grid, Button, Typography, TextField } from '@material-ui/core';
 
 export default function Register() {
 
@@ -47,69 +48,103 @@ export default function Register() {
     }
 
     return (
-        <div className="register-container">
-            <div className="content">
-                <section>
-                    <img src={logoImg} alt="Be The Hero" />
+        <Container>
+            <Typography align="center" color="primary">Cadastro Cliente Jurídico</Typography>
+            <Typography align="center">Faça seu cadastro, entre na plataforma e facilite a vida dos seus clientes!</Typography>
 
+            <form onSubmit={handleRegister}>
+                <Grid container item direction="column" justify="center" alignItems="center">
 
-                    <h1>Cadastro Cliente Jurídico</h1>
-                    <p>Faça seu cadastro, entre na plataforma e facilite a vida dos seus clientes!</p>
-
-                    <Link className="back-link" to="/logon-legal-client">
-                        <FiArrowLeft size={16} color="#E02041" />
-                        Voltar para tela de Logon
-                    </Link>
-                </section>
-                <form onSubmit={handleRegister}>
-
-                    <input
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        label="CNPJ"
                         placeholder="CNPJ"
                         maxLength="14"
                         value={cnpj}
                         onChange={event => setCnpj(event.target.value)}
                     />
-                    <input
+
+
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        label="Nome Fantasia"
                         placeholder="Nome"
                         value={name}
                         onChange={event => setName(event.target.value)}
                     />
-                    <input
+
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        label="Email"
                         type="email"
                         placeholder="E-mail"
                         value={email}
                         onChange={event => setEmail(event.target.value)}
                     />
 
-                    <input
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        label="Senha"
                         type="password"
-                        placeholder="Password"
+                        placeholder="Senha"
                         value={password}
                         onChange={event => setPassword(event.target.value)}
                     />
 
-                    <input
+
+
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        label="Whatsapp"
                         placeholder="WhatsApp"
                         value={whatsapp}
                         onChange={event => setWhatsapp(event.target.value)}
                     />
 
                     <div className="input-group">
-                        <input placeholder="Cidade"
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            label="Cidade"
+                            placeholder="Cidade"
+                            style={{ width: 145 }}
                             value={city}
                             onChange={event => setCity(event.target.value)}
                         />
-                        <input placeholder="UF" maxLength="2" style={{ width: 80 }}
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            label="UF"
+                            placeholder="UF"
+                            maxLength="2"
+                            style={{ width: 80 }}
                             value={uf}
                             onChange={event => setUf(event.target.value)}
+
                         />
                     </div>
 
 
-                    <Button className="button" style={ButtonStyle} type="submit">Cadastrar</Button>
 
-                </form>
-            </div>
-        </div>
+                    <Button variant="contained" color="primary" size="large" className="button" type="submit">Cadastrar</Button>
+                    <Link className="back-link" to="/logon-legal-client">
+                        <FiArrowLeft size={16} color="#E02041" />
+                        Voltar para tela de Logon
+                    </Link>
+                </Grid>
+            </form>
+        </Container>
     );
 }
