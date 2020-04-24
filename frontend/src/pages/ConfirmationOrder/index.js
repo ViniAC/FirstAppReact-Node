@@ -3,7 +3,10 @@ import './styles.css';
 import { useHistory } from 'react-router-dom';
 import logoImg from '../../assets/logo.svg';
 import api from '../../services/api';
-import { FiPower, FiArrowLeft } from 'react-icons/fi';
+import Header from '../Components/Header';
+import Orders from '../Components/Orders';
+import { Container, Grid, Button } from '@material-ui/core';
+
 
 export default function ConfirmationOrder() {
 
@@ -24,7 +27,7 @@ export default function ConfirmationOrder() {
       history.push('/order');
     } catch (err) {
       console.log(err);
-    } 
+    }
   }
 
   function handleCancelOrder() {
@@ -38,10 +41,7 @@ export default function ConfirmationOrder() {
       history.push('/home-physical-client');
     })
   }
-  function handleLogout() {
-    localStorage.clear();
-    history.push('/');
-  }
+
   function handleBackHome() {
     history.push('/home-physical-client');
   }
@@ -60,50 +60,35 @@ export default function ConfirmationOrder() {
 
 
   return (
-    <div className="home-container">
-      <header>
-        <div>
-          <img src={logoImg} alt="Be The Hero" />
+    <>
+      <Header profileType="profile-physical-client" name={physical_client_name} />
 
-          <span>Olá, {physical_client_name}. </span>
-        </div>
-        <div className="buttons">
-          <button onClick={handleBackHome} type="button">
-            <FiArrowLeft size={18} color="#E02041" />
-          </button>
+      <Container>
 
-          <button onClick={handleLogout} type="button">
-            <FiPower size={18} color="#E02041" />
-          </button>
-        </div>
-      </header>
+        <h1>Pedido em andamento:</h1>
 
-      <h1>Seu pedido:</h1>
-      <h2> {pk_id_order} </h2>
-      <ul >
-        {orders.map(order => (
-          <li >
-            <strong>PRATO:</strong>
-            <p>{order.description}</p>
 
-            <strong>Valor Unitário:</strong>
-            <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(order.unit_price)}</p>
+        <Grid xs={12} container item direction="row" spacing={2}>
+          {orders.map(order => (
+            <Grid key={order.name}
+              item xs={12} sm={6} md={4} >
 
-            <strong>Quantidade de items:</strong>
-            <p>{order.quantity}</p>
+              <Orders
+                name={order.name}
+                description={order.description}
+                quantity={order.quantity}
+                item_price={Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(order.item_price)}
+                unit_price={Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(order.unit_price)}
+                total_price={Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(order.total_price)}
+              />
 
-            <strong>Valor item:</strong>
-            <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(order.item_price)}</p>
+            </Grid>
 
-            <strong>Valor Total do pedido:</strong>
-            <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(order.total_price)}</p>
-          </li>
-        ))
-        }
-      </ul>
-
-      <button id='cancelOrder' onClick={handleCancelOrder}>Cancelar pedido</button>
-
-    </div >
+          ))}
+        </Grid>
+        <Button variant="contained" onClick={() => handleBackHome()} type="button">Voltar</Button>
+        <Button variant="contained" onClick={() => handleCancelOrder()} type="button">Cancelar pedido</Button>
+      </Container>
+    </>
   );
 }

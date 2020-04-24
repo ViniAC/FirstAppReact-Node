@@ -58,10 +58,8 @@ export default function Register() {
                     <TextField
                         variant="outlined"
                         margin="normal"
-
                         required
                         label="CPF"
-
                         placeholder="CPF"
                         maxLength="14"
                         value={cpf}
@@ -72,10 +70,8 @@ export default function Register() {
                     <TextField
                         variant="outlined"
                         margin="normal"
-
                         required
                         label="Nome completo"
-
                         placeholder="Nome completo"
                         value={name}
                         onChange={event => setName(event.target.value)}
@@ -84,10 +80,8 @@ export default function Register() {
                     <TextField
                         variant="outlined"
                         margin="normal"
-
                         required
                         label="Email"
-
                         type="email"
                         placeholder="E-mail"
                         value={email}
@@ -97,11 +91,8 @@ export default function Register() {
                     <TextField
                         variant="outlined"
                         margin="normal"
-
                         required
                         label="Senha"
-                        color="primary"
-
                         type="password"
                         placeholder="Senha"
                         value={password}
@@ -111,13 +102,9 @@ export default function Register() {
                     <TextField
                         variant="outlined"
                         margin="normal"
-
                         required
-                        // label="Data de Nascimento"
-                        // autoFocus="true"
-
                         type="date"
-
+                        style={{ width: 225 }}
                         value={date_birth}
                         onChange={event => setDt_birth(event.target.value)}
                     />
@@ -129,64 +116,6 @@ export default function Register() {
                     </Link>
                 </Grid>
             </form>
-
-
-
         </Container>
-        // <div className="register-container">
-        //     <div className="content">
-        //         <section>
-        //             <img src={logoImg} alt="Be The Hero" />
-
-
-        //             <h1>Cadastro Cliente Físico</h1>
-        //             <p>Faça seu cadastro, entre na plataforma e facilite sua vida!</p>
-
-        // <Link className="back-link" to="/">
-        //     <FiArrowLeft size={16} color="#E02041" />
-        //     Voltar para tela de Logon
-        // </Link>
-        //         </section>
-        //         <form onSubmit={handleRegister}>
-
-        //             <input
-        //                 placeholder="CPF"
-        //                 maxLength="14"
-        //                 value={cpf}
-        //                 onChange={event => setCpf(event.target.value)}
-        //             />
-
-        //             <input
-        // placeholder="Nome completo"
-        // value={name}
-        // onChange={event => setName(event.target.value)}
-        //             />
-
-        //             <input
-        // type="email"
-        // placeholder="E-mail"
-        // value={email}
-        // onChange={event => setEmail(event.target.value)}
-        //             />
-
-        //             <input
-        // type="password"
-        // placeholder="Senha"
-        // value={password}
-        // onChange={event => setPassword(event.target.value)}
-        //             />
-
-        //             <input
-        // type="date"
-        // placeholder="Data de Nascimento"
-        // value={date_birth}
-        // onChange={event => setDt_birth(event.target.value)}
-        //             />
-
-        //             <Button variant="contained" style={ButtonStyle} className="button" type="submit">Cadastrar</Button>
-
-        //         </form>
-        //     </div>
-        // </div>
     );
 }
