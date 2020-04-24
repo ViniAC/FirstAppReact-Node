@@ -67,6 +67,7 @@ export default function Profile() {
             console.log(data);
             await api.put('profile-legal-client', data);
             alert('Dados alterados com sucesso');
+            history.push('/profile-legal-client')
         } catch (err) {
             alert('Erro ao alterar dados');
             history.push('/profile-legal-client')
