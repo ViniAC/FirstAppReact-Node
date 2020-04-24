@@ -5,17 +5,10 @@ import api from '../../services/api'
 import Button from '@material-ui/core/Button';
 import { Grid, InputLabel, Input, TextField, Container, Typography, TextareaAutosize } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Header from '../Components/Header';
 
 const useStyles = makeStyles((theme) => ({
-    container: {
-        width: '100%',
-        maxWidth: '1120px',
-        height: '100vh',
-        margin: '0 auto',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+ 
     containerContent: {
         width: '100%',
         padding: '96px',
@@ -36,6 +29,7 @@ export default function NewMeal() {
     const [value, setValue] = useState('');
 
     const fk_id_legal_client = localStorage.getItem('legal_client_id');
+    const legal_client_name = localStorage.getItem('legal_client_name');
 
     async function handleNewMeal(e) {
         e.preventDefault();
@@ -64,20 +58,35 @@ export default function NewMeal() {
         console.log('DESCRIÇÃO: ', description)
         console.log('VALOR:     ', value);
     }, [name, description, value])
+    function handleBackHome() {
+
+        history.push('/home-legal-client');
+    }
     return (
         <>
+            <Header profileType="profile-legal-client" name={legal_client_name} />
             <Container className={classes.container}>
+                <Button style={{color: "#3f51b5", marginTop:"10px"}}  onClick={handleBackHome}>
+
+
+                    <FiArrowLeft style={{marginRight:"5px"}} size={18} color="#3f51b5" />
+                        
+                    
+                    <Typography>Voltar</Typography>
+
+
+                </Button>
                 <Grid container item direction="column" justify="center" alignItems="center">
                     <Grid className={classes.containerContent} container direction="column">
-                        <Typography variant="h2" >
+                        <Typography variant="h3" >
                             Cadastro de novos pratos
                         </Typography>
-                        <Typography variant="h4">
-                            Cadastre pratos deliciosos!
-                    </Typography>
+                        
                         <TextField
                             variant="outlined"
                             margin="normal"
+                            multiline={true}
+                            rowsMax="3"
                             required
                             label="Nome do prato"
                             placeholder="Nome do prato"
@@ -87,9 +96,10 @@ export default function NewMeal() {
                         />
                         <TextField
                             size="normal"
-                            multiline={true}
                             variant="outlined"
                             margin="normal"
+                            multiline={true}
+                            rowsMax="10"
                             required
                             label="Descrição"
                             placeholder="Descrição do prato"
@@ -99,19 +109,19 @@ export default function NewMeal() {
                         <TextField
                             variant="outlined"
                             margin="normal"
+                            multiline={true}
+                            rowsMax="1"
                             required
                             label="Valor"
                             placeholder="Valor do prato"
                             value={value}
                             onChange={event => setValue(event.target.value)}
                         />
+                        <Button variant="contained" color="primary" onClick={handleNewMeal}>Cadastrar</Button>
                     </Grid>
-                    <Button variant="contained" color="primary" onClick={handleNewMeal}>Cadastrar</Button>
-                    <Link className="back-link" to="/home-legal-client">
-                        <FiArrowLeft size={16} color="#E02041" />
-                    Voltar para Home
-                    </Link>
-                </Grid>
+                    
+                    
+                    </Grid>
 
             </Container>
         </>

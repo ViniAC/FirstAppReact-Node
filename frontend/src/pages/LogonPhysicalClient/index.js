@@ -52,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
     buttonColor: {
         color: "white",
         backgroundColor: "#ffab00",
+        textTransform: "none"
     },
     typography: {
         marginLeft: 10,
@@ -108,6 +109,7 @@ export default function Logon() {
                     <FormControl xs={12} className={clsx(classes.margin, classes.textField)} variant="outlined">
                         <InputLabel className={classes.textColor} >Email</InputLabel>
                         <OutlinedInput
+                            autoComplete='off'
                             className={classes.textColor}
                             id="outlined-adornment-email"
                             value={email}

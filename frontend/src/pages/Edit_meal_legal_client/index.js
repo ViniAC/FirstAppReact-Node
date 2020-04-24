@@ -52,7 +52,7 @@ export default function Home() {
 
 
 
-    async function handleBackHome() {
+    function handleBackHome() {
 
         history.push('home-legal-client');
     }
@@ -65,9 +65,9 @@ export default function Home() {
                 <Button style={{color: "#3f51b5", marginTop:"10px"}}  onClick={handleBackHome}>
 
 
-                    <Link ><FiArrowLeft style={{marginRight:"5px"}} size={18} color="#3f51b5" />
+                    <FiArrowLeft style={{marginRight:"5px"}} size={18} color="#3f51b5" />
                         
-                    </Link>
+                    
                     <Typography>Voltar</Typography>
 
 

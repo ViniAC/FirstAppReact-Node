@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import logoImg from '../../assets/logo.svg';
 import { FiPower, FiTrash2, FiEdit2, FiUser } from 'react-icons/fi';
-import './styles.css';
+//import './styles.css';
 import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 import Header from '../Components/Header';
 import Meal from '../Components/Meal';
-import { Container, Grid, Button } from '@material-ui/core';
+import { Container, Grid, Button, Typography } from '@material-ui/core';
 
 export default function Home() {
 
@@ -58,21 +58,22 @@ export default function Home() {
         localStorage.setItem('meal_id', pk_id_meal);
         history.push('edit-meal-legal-client')
     }
+    function handleNewMeal() {
+
+        history.push('/meals/new');
+    }
+
 
     return (
         <>
             <Header profileType="profile-legal-client" name={legal_client_name} />
             <Container>
 
-                <header>
+                <Button style={{ marginTop: "10px", paddingRight: "2px",paddingLeft: "2px" }} color="primary" variant="contained" onClick={handleNewMeal} >
+                    <Typography>Cadastrar novo Prato</Typography>
 
-                    <div>
-                        <Link className="button" to="/meals/new">Cadastrar novo Prato</Link>
-
-                    </div>
-
-                </header>
-                <h1>Pratos Cadastrados</h1>
+                </Button>
+                <Typography>Pratos Cadastrados</Typography>
 
 
                 <Grid xs={12} container item direction="row" spacing={2}>

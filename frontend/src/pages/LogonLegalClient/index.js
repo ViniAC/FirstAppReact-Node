@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
     },
     textField: {
         width: '25ch',
-
+        
+        
     },
     buttonLink: {
         display: 'flex',
@@ -47,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundImage: `url(${Image2})`,
         backgroundPosition: 'center',
         
+        
     },
     textColor: {
         color: "white"
@@ -54,6 +56,8 @@ const useStyles = makeStyles((theme) => ({
     buttonColor: {
         color: "white",
         backgroundColor: "#ffab00",
+        textTransform: "none",
+        transition: "all 0.5s ease-out"
     },
     typography: {
         marginLeft: 10,
@@ -107,9 +111,11 @@ export default function Logon() {
             <Container className={classes.menu}>
                 <Grid style={{ height: '100vh' }} container item direction="column" justify="center" alignItems="center">
 
-                    <FormControl xs={12} className={clsx(classes.margin, classes.textField)} variant="outlined">
-                        <InputLabel className={classes.textColor} >ID</InputLabel>
+                    <FormControl  xs={12} className={clsx(classes.margin, classes.textField)} variant="outlined">
+                        <InputLabel  className={classes.textColor} >ID</InputLabel>
                         <OutlinedInput
+                            
+                            autoComplete='off'
                             className={classes.textColor}
                             id="outlined-adornment-pk_id_legal_client"
                             value={pk_id_legal_client}
