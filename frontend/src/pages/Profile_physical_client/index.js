@@ -91,9 +91,6 @@ export default function Profile() {
             history.push('/profile-physical-client')
         }
     }
-    useEffect(() => {
-        console.log(physical_client);
-    }, [physical_client])
     return (
         <>
             <Header profileType="profile-physical-client" name={physical_client.name} />

@@ -5,7 +5,7 @@ import './styles.css';
 import { useHistory } from 'react-router-dom';
 import CardActions from '@material-ui/core/CardActions';
 import api from '../../services/api';
-import { Container, Grid, Button, Typography, InputBase } from '@material-ui/core';
+import { Container, Grid, Button, Typography, InputBase, TextField } from '@material-ui/core';
 import { ButtonStyle } from '../../assets/ButtonStyle'
 import Header from '../Components/Header';
 import Meal from '../Components/Meal';
@@ -175,9 +175,10 @@ export default function Home() {
             <Header profileType="profile-physical-client" name={physical_client_name} />
             <Container >
                 <Grid color='primary'>
-                    <InputBase
+                    <TextField
                         color='secondary'
                         fullWidth='true'
+                        variant="outlined"
                         placeholder="Nome do prato"
                         value={newSearch}
                         onChange={onNewSearchChange}

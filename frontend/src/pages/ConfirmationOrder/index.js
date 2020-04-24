@@ -1,18 +1,41 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import './styles.css';
-import { useHistory } from 'react-router-dom';
-import logoImg from '../../assets/logo.svg';
+import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 import Header from '../Components/Header';
-import Orders from '../Components/Orders';
-import { Container, Grid, Button } from '@material-ui/core';
+import { Container, Grid, Button, TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import Typography from '@material-ui/core/Typography';
+import CardContent from '@material-ui/core/CardContent';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
+const useStyles = makeStyles({
 
+  media: {
+
+    minWidth: 500
+  },
+  gridStyle: {
+    display: 'flex',
+    justifyContent: 'space-between'
+  }
+
+});
 
 export default function ConfirmationOrder() {
-
+  const classes = useStyles();
   const [orders, setOrders] = useState([]);
   const [pk_id_order, setIdOrder] = useState('');
 
+  const [edit, setEdit] = React.useState({
+    edit: true
+  });
+
+  const handleClickChangeEdit = () => {
+    setEdit({ ...edit, edit: !edit.edit });
+  };
   const physical_client_name = localStorage.getItem('physical_client_name');
   const id_order = localStorage.getItem('id_order');
   const physical_client_id = localStorage.getItem('physical_client_id');
@@ -57,8 +80,19 @@ export default function ConfirmationOrder() {
       setOrders(response.data);
     })
   }, [id_order]);
-
-
+  function changeQuantityOrder(event, mealId) {
+    let copyOfOrders = orders.slice();
+    for (let index = 0; index < copyOfOrders.length; index++) {
+      if (copyOfOrders[index].fk_id_meal === mealId) {
+        if (event.target.value <= 0) {
+          return
+        }
+        copyOfOrders[index].quantity = event.target.value
+        setOrders(copyOfOrders)
+        return
+      }
+    }
+  }
   return (
     <>
       <Header profileType="profile-physical-client" name={physical_client_name} />
@@ -69,25 +103,70 @@ export default function ConfirmationOrder() {
 
 
         <Grid xs={12} container item direction="row" spacing={2}>
+          
           {orders.map(order => (
             <Grid key={order.name}
               item xs={12} sm={6} md={4} >
+              <Card>
+                <CardActionArea>
 
-              <Orders
-                name={order.name}
-                description={order.description}
-                quantity={order.quantity}
-                item_price={Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(order.item_price)}
-                unit_price={Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(order.unit_price)}
-                total_price={Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(order.total_price)}
-              />
+                  <CardContent >
+                    <Grid className={classes.gridStyle} container >
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {order.name}
+                      </Typography>
+                    </Grid>
+
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      {order.description}
+                    </Typography>
+
+                    <TextField
+                      type="number"
+                      disabled={edit.edit}
+                      value={order.quantity}
+                      onChange={(event) => {
+                        changeQuantityOrder(event, order.fk_id_meal)
+                      }}
+                    >
+                      Quantidade:{order.quantity}
+                    </TextField>
+
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      Preço unitário:{order.unit_price}
+                    </Typography>
+
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      Preço do Item:{order.item_price}
+                    </Typography>
+
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      Preço Total:{order.total_price}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+
+              </Card>
 
             </Grid>
 
           ))}
+          
         </Grid>
+        <Link>
+            <IconButton
+              onClick={handleClickChangeEdit}>
+              <EditIcon />
+            </IconButton>
+          </Link>
+        <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSaveButton}>
+            Salvar
+                    </Button>
         <Button variant="contained" onClick={() => handleBackHome()} type="button">Voltar</Button>
-        <Button variant="contained" onClick={() => handleCancelOrder()} type="button">Cancelar pedido</Button>
+        <Button color="secondary" variant="contained" onClick={() => handleCancelOrder()} type="button">Cancelar pedido</Button>
       </Container>
     </>
   );

@@ -76,7 +76,7 @@ module.exports = {
         let orderList = request.body;
         let totalPrice = 0;
         for (let i = 0; i < orderList.length; i++) {
-            orderList[i].item_price = orderList[i].item_price * orderList[i].quantity
+            orderList[i].item_price = orderList[i].unit_price * orderList[i].quantity
             totalPrice += orderList[i].item_price;
         }
         for (let index = 0; index < orderList.length; index++) {
@@ -86,7 +86,7 @@ module.exports = {
             .where('fk_id_physical_client', orderList[index].fk_id_physical_client)
             .and
             .where('fk_id_meal', orderList[index].fk_id_meal)
-            .update({ quantity: orderList[index].quantity, item_price: orderList[index].item_price, totalPrice: totalPrice });
+            .update({ quantity: orderList[index].quantity, item_price: orderList[index].item_price, total_price: totalPrice });
         }
     }
 }
