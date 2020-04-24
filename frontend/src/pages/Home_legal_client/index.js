@@ -6,7 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 import Header from '../Components/Header';
 import Meal from '../Components/Meal';
-import { Container, Grid, Button} from '@material-ui/core';
+import { Container, Grid, Button } from '@material-ui/core';
 
 export default function Home() {
 
@@ -86,7 +86,7 @@ export default function Home() {
                                 quantity={meal.qt}
                                 value={Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}
                             />
-                             <Button onClick={() => handleDeleteMeal(meal.pk_id_meal)} type="button">
+                            <Button onClick={() => handleDeleteMeal(meal.pk_id_meal)} type="button">
                                 <FiTrash2 size={20} color="#a8a8b3" />
                             </Button>
                             <Button onClick={() => handleEditMeal(meal.pk_id_meal)} type="button">
@@ -97,10 +97,6 @@ export default function Home() {
 
                     ))}
                 </Grid>
-
-               
-
-
             </Container>
         </>
 

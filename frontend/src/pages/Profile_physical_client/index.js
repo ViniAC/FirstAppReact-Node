@@ -82,6 +82,7 @@ export default function Profile() {
         try {
             await api.put('profile-physical-client', data);
             alert('Dados alterados com sucesso');
+            history.push('/profile-physical-client')
         } catch (err) {
             alert('Erro ao alterar dados');
             history.push('/profile-physical-client')
@@ -142,7 +143,7 @@ export default function Profile() {
                             onClick={handleDeleteAccount}>
                             <FiTrash2 size={20} color="gray" />
                         </button>
-                        <button 
+                        <button
                             type="button"
                             onClick={() => setEdit(!edit)}>
                             <FaRegEdit size={20} color="gray" />

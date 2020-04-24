@@ -17,6 +17,8 @@ export default function Home() {
     const physical_client_email = localStorage.getItem('physical_client_email')
     const physical_client_id = localStorage.getItem('physical_client_id');
 
+    const [cart, setCart] = useState([]);
+
     const [meals, setMeals] = useState([]);
     const [newSearch, setNewSearch] = useState('');
     const [searchList, setSearchList] = useState([]);
@@ -94,24 +96,48 @@ export default function Home() {
 
 
 
-    function handleRemoveMeal() {
+    function handleClearCart() {
         let copyOfList = meals.slice()
         for (let index = 0; index < copyOfList.length; index++) {
-            
-                
             copyOfList[index].qt = 0;
             setMeals(copyOfList);
         }
-                    
-              
     }
 
     function handleViewMyOrders() {
         history.push('/order');
     }
 
-    async function handleAddMeal(mealId) {
+    function handleRemoveMeal(mealId) {
         let copyOfList = meals.slice()
+        let copyOfCart = cart.slice();
+        for (let index = 0; index < copyOfList.length; index++) {
+            if (mealId === copyOfList[index].pk_id_meal) {
+                if (copyOfList[index].qt <= 1) {
+                    copyOfList[index].qt = 0;
+                    for (let i = 0; i < copyOfCart.length; i++) {
+                        if(copyOfCart[i].pk_id_meal == copyOfList[index].pk_id_meal){
+                            copyOfCart.splice(copyOfCart[i], 1);
+                        }
+                    }
+                    setMeals(copyOfList);
+                    setCart(copyOfCart);
+                    return
+                }
+                for (let i = 0; i < copyOfCart.length; i++) {
+                    if(copyOfCart[i].pk_id_meal === copyOfList[index].pk_id_meal){
+                        copyOfCart[i].qt--
+                    }
+                }
+                copyOfList[index].qt--
+            }
+        }
+        setCart(copyOfCart);
+        setMeals(copyOfList);
+    }
+    async function handleAddMeal(mealId) {
+        let copyOfList = meals.slice();
+        let copyOfCart = cart.slice();
         for (let index = 0; index < copyOfList.length; index++) {
             if (mealId === copyOfList[index].pk_id_meal) {
                 let newValue = (copyOfList[index].qt += 1);
@@ -119,7 +145,22 @@ export default function Home() {
                     newValue = 1;
                 }
                 Object.assign(copyOfList[index], { qt: newValue });
+                if(copyOfCart.length == 0){
+                    copyOfCart.push(copyOfList.slice(index,index + 1)[0]);
+                }else{
+                    for (let i = 0; i < copyOfCart.length; i++) {
+                        if (copyOfCart[i].pk_id_meal === copyOfList[index].pk_id_meal){
+                            copyOfCart[i].qt = copyOfList[index].qt;
+                            setCart(copyOfCart);
+                            setMeals(copyOfList);
+                            return
+                        }
+                    }
+                    copyOfCart.push(copyOfList.slice(index,index + 1)[0]);                    
+                }
+                setCart(copyOfCart);
                 setMeals(copyOfList);
+                return
             }
         }
     }
@@ -145,6 +186,7 @@ export default function Home() {
                 {newSearch == '' && (
                     <Grid xs={12} container item direction="row" spacing={2}>
                         {meals.map(meal => (
+                            <>
                             <Grid key={meal.name} onClick={() => handleAddMeal(meal.pk_id_meal)} 
                             item xs={12} sm={6} md={4} >
 
@@ -155,8 +197,12 @@ export default function Home() {
                                     value={Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(meal.value)}
                                     
                                 />
-                                 
+                            
                             </Grid>
+                            {/* <button onClick={() => handleRemoveMeal(meal.pk_id_meal)} type="button">
+                            <IoIosRemove size={20} color="gray" />
+                            </button> */}
+                            </>
                         ))
                         }
                         
@@ -184,7 +230,7 @@ export default function Home() {
                     {btnMyOrder !== false && (
                         <Button variant="contained" onClick={() => handleViewMyOrders()} type="button">Visualizar meu pedido</Button>
                     )}
-                    <Button variant="contained" color='secondary' onClick={() => handleRemoveMeal()}>Limpar Carrinho</Button>
+                    <Button variant="contained" color='secondary' onClick={() => handleClearCart()}>Limpar Carrinho</Button>
                     <Button variant="contained" color='green'  onClick={() => handleMakeOrder()}>Finalizar pedido</Button>
                     
                 </Grid>
